@@ -3,7 +3,9 @@ apply plugin: IntegrationTestsPlugin
 dependencies {
     implementation "org.postgresql:postgresql:$postgresDriverVersion"
 
-    integrationTestImplementation project(":customers:customers-domain")
+    integrationTestImplementation project(":notifications:notifications-domain")
+    integrationTestImplementation project(':customers:customers-api-observer')
+
     integrationTestImplementation "org.springframework.boot:spring-boot-starter-data-jpa"
     integrationTestImplementation project(":test-container-util");
 }
