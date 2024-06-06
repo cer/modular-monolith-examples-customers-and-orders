@@ -1,5 +1,5 @@
 dependencies {
-    api "org.testcontainers:postgresql:$testContainersVersion"
+    api "org.testcontainers:postgresql"
     implementation "org.springframework.boot:spring-boot-starter-test"
 
 }

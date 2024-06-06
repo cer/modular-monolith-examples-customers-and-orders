@@ -1,7 +1,7 @@
 apply plugin: IntegrationTestsPlugin
 
 dependencies {
-    implementation "org.postgresql:postgresql:$postgresDriverVersion"
+    implementation "org.postgresql:postgresql"
 
     integrationTestImplementation project(":notifications:notifications-domain")
     integrationTestImplementation project(':customers:customers-api-observer')

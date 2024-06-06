@@ -1,0 +1,6 @@
+dependencies {
+    constraints {
+        api "org.postgresql:postgresql:42.7.3"
+        api "org.testcontainers:postgresql:1.17.3"
+    }
+}
