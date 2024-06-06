@@ -3,7 +3,6 @@ rootProject.name = "monolithic-customers-and-orders"
 include 'main'
 
 include 'money'
-include 'money-api'
 
 include 'customers:customers-web'
 include 'customers:customers-domain'
