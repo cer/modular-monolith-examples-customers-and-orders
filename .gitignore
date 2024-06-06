@@ -1,0 +1,15 @@
+.gradle
+build/
+*.idea/
+*.iml
+*.log
+tmp-migration
+
+out
+bin
+.vscode
+.DS_Store
+helm-repository
+*.tgz
+Chart.lock
+_download

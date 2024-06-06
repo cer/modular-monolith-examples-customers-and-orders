@@ -1,0 +1,17 @@
+plugins {
+    id("org.springframework.boot")
+}
+
+apply plugin: ComponentTestsPlugin
+
+dependencies {
+    implementation project(":domain")
+    implementation project(":web")
+    implementation "org.springframework.boot:spring-boot-starter"
+
+    componentTestImplementation project(":test-container-util");
+    componentTestImplementation "io.rest-assured:rest-assured"
+    componentTestImplementation "io.rest-assured:json-path"
+
+
+}
