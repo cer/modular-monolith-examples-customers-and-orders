@@ -2,8 +2,8 @@ package net.chrisrichardson.examples.monolithiccustomersandorders.customers.web;
 
 
 import jakarta.validation.Valid;
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.CustomerInfo;
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.CustomerService;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CustomerInfo;
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.domain.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

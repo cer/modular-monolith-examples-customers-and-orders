@@ -1,8 +1,8 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.domain;
 
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.CustomerService;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CreditManagement;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
-import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.domain.NotificationService;
+import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.NotificationService;
 import net.chrisrichardson.examples.monolithiccustomersandorders.orders.domain.Order;
 import net.chrisrichardson.examples.monolithiccustomersandorders.orders.domain.OrderRepository;
 import net.chrisrichardson.examples.monolithiccustomersandorders.orders.domain.OrderState;
@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -36,6 +38,11 @@ public class RepositoriesTest {
     postgres.startAndRegisterProperties(registry);
   }
 
+  @Configuration
+  @Import({OrdersDomainConfiguration.class})
+  static public class Config {
+  }
+
   @Autowired
   private OrderRepository orderRepository;
 
@@ -43,10 +50,11 @@ public class RepositoriesTest {
   private TransactionTemplate transactionTemplate;
 
   @MockBean
-  private CustomerService customerInfoService;
+  private CreditManagement customerInfoService;
 
   @MockBean
   private NotificationService notificationService;
+
 
   @Test
   public void shouldSaveAndLoadOrder() {

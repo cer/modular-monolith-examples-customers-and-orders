@@ -1,10 +1,10 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.customers.domain;
 
 
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.CustomerInfo;
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.CustomerService;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CustomerInfo;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
-import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.domain.NotificationService;
+import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

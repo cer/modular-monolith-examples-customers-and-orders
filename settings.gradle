@@ -8,6 +8,7 @@ include 'customers:customers-web'
 include 'customers:customers-domain'
 include 'customers:customers-persistence'
 include 'customers:customers-api'
+include 'customers:customers-api-credit-management'
 
 include 'orders:orders-web'
 include 'orders:orders-domain'
@@ -17,6 +18,7 @@ include 'orders:orders-module-test'
 include 'notifications:notifications-web'
 include 'notifications:notifications-domain'
 include 'notifications:notifications-persistence'
+include 'notifications:notifications-api'
 
 
 include 'test-container-util'

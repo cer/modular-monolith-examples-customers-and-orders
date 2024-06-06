@@ -1,9 +1,9 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.orders;
 
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.CustomerInfo;
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.CustomerService;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CustomerInfo;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
-import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.domain.NotificationService;
+import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.NotificationService;
 import net.chrisrichardson.examples.monolithiccustomersandorders.orders.web.CreateOrderRequest;
 import net.chrisrichardson.examples.monolithiccustomersandorders.orders.web.CreateOrderResponse;
 import net.chrisrichardson.examples.monolithiccustomersandorders.testcontainerutil.PropertyProvidingPostgresSQLContainer;

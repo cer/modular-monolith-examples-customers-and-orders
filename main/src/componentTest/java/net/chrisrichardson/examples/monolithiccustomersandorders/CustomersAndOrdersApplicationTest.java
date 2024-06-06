@@ -47,6 +47,7 @@ public class CustomersAndOrdersApplicationTest {
             when().
             post("/customers").
             then().
+            log().all().
             statusCode(200)
             .extract().path("customerId");
 
@@ -74,7 +75,6 @@ public class CustomersAndOrdersApplicationTest {
             log().ifValidationFails().
             statusCode(200)
             .body("customerId", greaterThanOrEqualTo(0));
-
   }
 
   @Test
@@ -85,6 +85,7 @@ public class CustomersAndOrdersApplicationTest {
             when().
             post("/customers").
             then().
+            log().all().
             statusCode(400);
 
   }

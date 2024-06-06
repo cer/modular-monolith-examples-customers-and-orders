@@ -9,7 +9,7 @@ dependencies {
 
     integrationTestImplementation project(":customers:customers-api")
     integrationTestImplementation project(":money")
-    integrationTestImplementation project(":notifications:notifications-domain")
+    integrationTestImplementation project(":notifications:notifications-api")
 
     integrationTestImplementation "org.springframework.boot:spring-boot-starter-web"
 
