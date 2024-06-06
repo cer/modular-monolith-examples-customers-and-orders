@@ -1,17 +1,16 @@
-apply plugin: IntegrationTestsPlugin
 
 dependencies {
-    api "org.springframework.boot:spring-boot-starter-data-jpa"
+    api project(":money")
+
+    compileOnly "org.springframework.boot:spring-boot-starter-data-jpa"
+
     implementation "commons-lang:commons-lang:2.6"
     implementation "org.springframework.boot:spring-boot-starter-validation"
-
-    implementation project(":money")
 
     implementation project(":customers:customers-api")
     implementation project(":customers:customers-api-observer")
 
     implementation "org.postgresql:postgresql:42.3.7"
 
-    integrationTestImplementation project(":test-container-util");
 }
 

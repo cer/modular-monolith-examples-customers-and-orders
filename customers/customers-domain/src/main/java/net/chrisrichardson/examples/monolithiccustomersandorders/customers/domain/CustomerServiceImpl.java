@@ -8,6 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.StreamSupport;
+
+import static java.util.stream.Collectors.toList;
+
 @Service
 @Transactional
 public class CustomerServiceImpl implements CustomerService {
@@ -31,6 +37,16 @@ public class CustomerServiceImpl implements CustomerService {
             creditLimit,
             customer.availableCredit()));
     return makeCustomerInfo(savedCustomer);
+  }
+
+  @Override
+  public List<CustomerInfo> findAll() {
+    return StreamSupport.stream(customerRepository.findAll().spliterator(), false).map(this::makeCustomerInfo).collect(toList());
+  }
+
+  @Override
+  public Optional<CustomerInfo> findById(long customerId) {
+    return customerRepository.findById(customerId).map(this::makeCustomerInfo);
   }
 
 

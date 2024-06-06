@@ -1,0 +1,7 @@
+apply plugin: IntegrationTestsPlugin
+
+dependencies {
+    integrationTestImplementation project(":customers:customers-domain")
+    integrationTestImplementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    integrationTestImplementation project(":test-container-util");
+}
