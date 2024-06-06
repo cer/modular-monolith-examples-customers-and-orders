@@ -17,7 +17,7 @@ image::./customers-and-orders-modular-monolith.png[]
 A domain module has a hexagonal architecture:
 
 * `domain` - the business logic
-* `web` - a inbound adapter that implements a REST API
+* `web` - an inbound adapter that implements a REST API
 * `persistence` - an outbound adapter that implements database access
 
 ## Domain module collaboration mechanisms
@@ -68,7 +68,9 @@ This example minimizes build-time coupling in a few different ways:
 
 To reduce build-time coupling within a domain module, each domain module consists of multiple Gradle sub-projects.
 Typically, the sub-projects correspond the elements of the hexagonal architecture - domain or adapter.
-As a result, a change to the `web` adapter doesn't require the `domain` or `persistence` adapter to be recompiled/retested.
+For example, the `Customers` domain consists of multiple Gradle sub-projects including `customers-domain`, `customers-web`, and `customers-persistence`.
+An important benefit of this design is that it reduces build-time coupling.
+A change, for example, to the `web` adapter doesn't require the `domain` or `persistence` adapter to be recompiled/retested.
 
 ### Domain modules have a Domain API Gradle sub-project
 
