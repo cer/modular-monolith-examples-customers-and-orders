@@ -1,6 +1,6 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.domain;
 
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.domain.CustomerService;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.CustomerService;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
 import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.domain.NotificationService;
 import net.chrisrichardson.examples.monolithiccustomersandorders.orders.domain.Order;

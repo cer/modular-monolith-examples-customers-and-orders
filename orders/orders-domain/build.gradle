@@ -1,7 +1,7 @@
 apply plugin: IntegrationTestsPlugin
 
 dependencies {
-    implementation project(":customers:customers-domain")
+    implementation project(":customers:customers-api")
     implementation project(":money")
     implementation project(":notifications:notifications-domain")
 

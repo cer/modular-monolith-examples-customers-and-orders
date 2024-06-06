@@ -1,6 +1,8 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.customers.domain;
 
 
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.CustomerInfo;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.CustomerService;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
 import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.domain.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,32 +13,36 @@ import java.util.Map;
 
 @Service
 @Transactional
-public class CustomerService {
+public class CustomerServiceImpl implements CustomerService {
 
   private final CustomerRepository customerRepository;
   private final NotificationService notificationService;
 
   @Autowired
-  public CustomerService(CustomerRepository customerRepository, NotificationService notificationService) {
+  public CustomerServiceImpl(CustomerRepository customerRepository, NotificationService notificationService) {
     this.customerRepository = customerRepository;
     this.notificationService = notificationService;
   }
 
-  public Customer createCustomer(String name, Money creditLimit) {
+  @Override
+  public CustomerInfo createCustomer(String name, Money creditLimit) {
     Customer customer  = new Customer(name, creditLimit);
     Customer savedCustomer = customerRepository.save(customer);
     notificationService.sendEmail(savedCustomer.getEmailAddress(), "Welcome", Map.of("name", customer.getName()));
-    return savedCustomer;
+    return makeCustomerInfo(savedCustomer);
   }
 
+  @Override
   public void reserveCredit(long customerId, long orderId, Money orderTotal) {
     findRequiredCustomerById(customerId).reserveCredit(orderId, orderTotal);
   }
 
+  @Override
   public void releaseCredit(long customerId, long orderId) {
     findRequiredCustomerById(orderId).releaseCredit(orderId);
   }
 
+  @Override
   public CustomerInfo getCustomerInfo(long customerId) {
     return makeCustomerInfo(findRequiredCustomerById(customerId));
   }

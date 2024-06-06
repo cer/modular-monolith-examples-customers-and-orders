@@ -7,6 +7,7 @@ dependencies {
 
     implementation project(":money")
     implementation project(":notifications:notifications-domain")
+    implementation project(":customers:customers-api")
 
     implementation "org.postgresql:postgresql:42.3.7"
 

@@ -1,4 +1,5 @@
 dependencies {
+    implementation project(":customers:customers-api")
     implementation project(":customers:customers-domain")
     implementation project(":money")
     implementation "org.hibernate.validator:hibernate-validator"

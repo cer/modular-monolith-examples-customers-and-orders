@@ -7,6 +7,7 @@ include 'money'
 include 'customers:customers-web'
 include 'customers:customers-domain'
 include 'customers:customers-persistence'
+include 'customers:customers-api'
 
 include 'orders:orders-web'
 include 'orders:orders-domain'

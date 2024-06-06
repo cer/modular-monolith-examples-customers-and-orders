@@ -30,5 +30,12 @@ dependencies {
     componentTestImplementation "io.eventuate.common:eventuate-common-testcontainers"
     componentTestImplementation "org.springframework.boot:spring-boot-starter-web"
 
+}
 
+def thisProject = project
+
+rootProject.subprojects { p ->
+    if (p.name == "main")
+        return;
+    thisProject.tasks.findByName("check").mustRunAfter(":${p.path}:check")
 }

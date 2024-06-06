@@ -2,9 +2,9 @@ package net.chrisrichardson.examples.monolithiccustomersandorders.customers.web;
 
 
 import jakarta.validation.Valid;
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.domain.Customer;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.CustomerInfo;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.CustomerService;
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.domain.CustomerRepository;
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.domain.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,9 +30,8 @@ public class CustomerController {
   }
 
   @RequestMapping(value = "/customers", method = RequestMethod.POST)
-  public CreateCustomerResponse createCustomer(@RequestBody @Valid CreateCustomerRequest createCustomerRequest) {
-    Customer customer = customerService.createCustomer(createCustomerRequest.getName(), createCustomerRequest.getCreditLimit());
-    return new CreateCustomerResponse(customer.getId());
+  public CustomerInfo createCustomer(@RequestBody @Valid CreateCustomerRequest createCustomerRequest) {
+    return customerService.createCustomer(createCustomerRequest.getName(), createCustomerRequest.getCreditLimit());
   }
 
   @RequestMapping(value="/customers", method= RequestMethod.GET)

@@ -71,6 +71,7 @@ public class CustomersAndOrdersApplicationTest {
             when().
             post("/customers").
             then().
+            log().ifValidationFails().
             statusCode(200)
             .body("customerId", greaterThanOrEqualTo(0));
 

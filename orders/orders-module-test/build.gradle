@@ -7,7 +7,7 @@ dependencies {
 
     integrationTestImplementation project(":test-container-util")
 
-    integrationTestImplementation project(":customers:customers-domain")
+    integrationTestImplementation project(":customers:customers-api")
     integrationTestImplementation project(":money")
     integrationTestImplementation project(":notifications:notifications-domain")
 
