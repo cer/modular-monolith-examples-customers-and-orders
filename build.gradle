@@ -32,6 +32,7 @@ subprojects {
     }
 
     dependencies {
+        implementation(platform("io.eventuate.platform:eventuate-platform-dependencies:$eventuatePlatformVersion"))
         implementation(platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion"))
 
         testImplementation "junit:junit:4.13.2"

@@ -1,19 +1,7 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.orders.domain;
 
 
-import jakarta.persistence.Access;
-import jakarta.persistence.AccessType;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Version;
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.domain.Customer;
+import jakarta.persistence.*;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
 
 @Entity
@@ -26,8 +14,8 @@ public class Order {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne
-  private Customer customer;
+  // TODO - what about the FK constraint (which would make testing more difficult BTW)
+  private long customerId;
   @Embedded
   private Money orderTotal;
 
@@ -44,8 +32,8 @@ public class Order {
   public Order() {
   }
 
-  public Order(Customer customer, Money orderTotal) {
-    this.customer = customer;
+  public Order(long customerId, Money orderTotal) {
+    this.customerId = customerId;
     this.orderTotal = orderTotal;
     this.state = OrderState.PENDING;
   }
@@ -76,16 +64,14 @@ public class Order {
   }
 
   public void cancel() {
-    customer.releaseCredit(id);
     this.state = OrderState.CANCELLED;
   }
 
-  public Customer getCustomer() {
-    return customer;
+  public long getCustomerId() {
+    return customerId;
   }
 
-  void reserveCredit() {
-    this.customer.reserveCredit(id, orderTotal);
+  void noteApproved() {
     this.state = OrderState.APPROVED;
   }
 }

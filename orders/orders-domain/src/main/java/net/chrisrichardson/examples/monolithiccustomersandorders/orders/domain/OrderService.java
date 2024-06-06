@@ -1,7 +1,6 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.orders.domain;
 
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.domain.CustomerNotFoundException;
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.domain.CustomerRepository;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.domain.CustomerService;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
 import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.domain.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,30 +13,31 @@ import java.util.Map;
 public class OrderService {
 
   private final OrderRepository orderRepository;
-  private final CustomerRepository customerRepository;
   private final NotificationService notificationService;
+  private final CustomerService customerService;
 
-  @Autowired
-  public OrderService(OrderRepository orderRepository, CustomerRepository customerRepository, NotificationService notificationService) {
+    @Autowired
+  public OrderService(OrderRepository orderRepository, NotificationService notificationService, CustomerService customerService) {
     this.orderRepository = orderRepository;
-    this.customerRepository = customerRepository;
     this.notificationService = notificationService;
-  }
+    this.customerService = customerService;
+   }
 
   @Transactional
   public Order createOrder(long customerId, Money orderTotal) {
-    return customerRepository.findById(customerId)
-            .map(customer -> {
-              Order order = new Order(customer, orderTotal);
-              order = orderRepository.save(order);
-              order.reserveCredit();
-              notificationService.sendEmail(customer.getEmailAddress(), "OrderConfirmation", Map.of("orderId", order.getId()));
-              return order;
-            })
-            .orElseThrow(() -> new CustomerNotFoundException(customerId));
+      Order order = new Order(customerId, orderTotal);
+      order = orderRepository.save(order);
+      customerService.reserveCredit(customerId, order.getId(), orderTotal);
+      order.noteApproved();
+      var customer = customerService.getCustomerInfo(customerId);
+      notificationService.sendEmail(customer.emailAddress(), "OrderConfirmation", Map.of("orderId", order.getId()));
+      return order;
   }
 
-  public void cancelOrder(Long orderId) {
-    orderRepository.findById(orderId).get().cancel();
+  public void cancelOrder(long orderId) {
+    Order order = orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException(orderId));
+    order.cancel();
+    customerService.releaseCredit(order.getCustomerId(), orderId);
   }
+
 }

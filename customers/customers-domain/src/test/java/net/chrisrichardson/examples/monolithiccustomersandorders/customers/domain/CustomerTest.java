@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class CustomerTest {
 
   private final Money creditLimit = new Money(100);
-  private long orderId = 101L;
+  private final long orderId = 101L;
   private Customer customer;
 
   @BeforeEach

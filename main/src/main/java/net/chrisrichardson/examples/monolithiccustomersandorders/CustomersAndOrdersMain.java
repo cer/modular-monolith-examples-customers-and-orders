@@ -1,11 +1,9 @@
-package net.chrisrichardson.examples.monolithiccustomersandorders.main;
+package net.chrisrichardson.examples.monolithiccustomersandorders;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
-@Import(CustomersAndOrdersConfiguration.class)
 public class CustomersAndOrdersMain {
 
   public static void main(String[] args) {

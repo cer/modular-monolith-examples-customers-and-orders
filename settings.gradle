@@ -11,6 +11,7 @@ include 'customers:customers-persistence'
 include 'orders:orders-web'
 include 'orders:orders-domain'
 include 'orders:orders-persistence'
+include 'orders:orders-module-test'
 
 include 'notifications:notifications-web'
 include 'notifications:notifications-domain'
