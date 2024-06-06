@@ -5,8 +5,18 @@ plugins {
 apply plugin: ComponentTestsPlugin
 
 dependencies {
-    implementation project(":domain")
-    implementation project(":web")
+    implementation project(":customers:customers-domain")
+    implementation project(":customers:customers-web")
+    implementation project(":customers:customers-persistence")
+
+    implementation project(":orders:orders-domain")
+    implementation project(":orders:orders-web")
+    implementation project(":orders:orders-persistence")
+
+    implementation project(":notifications:notifications-domain")
+    implementation project(":notifications:notifications-web")
+    implementation project(":notifications:notifications-persistence")
+
     implementation "org.springframework.boot:spring-boot-starter"
 
     componentTestImplementation project(":test-container-util");

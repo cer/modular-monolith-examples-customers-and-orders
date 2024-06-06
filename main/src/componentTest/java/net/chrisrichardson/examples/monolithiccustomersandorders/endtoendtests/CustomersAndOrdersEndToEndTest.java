@@ -1,9 +1,8 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.endtoendtests;
 
 import io.restassured.http.ContentType;
-import net.chrisrichardson.examples.monolithiccustomersandorders.domain.DomainConfiguration;
+import net.chrisrichardson.examples.monolithiccustomersandorders.main.CustomersAndOrdersConfiguration;
 import net.chrisrichardson.examples.monolithiccustomersandorders.testcontainerutil.PropertyProvidingPostgresSQLContainer;
-import net.chrisrichardson.examples.monolithiccustomersandorders.web.WebConfiguration;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +22,7 @@ import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 public class CustomersAndOrdersEndToEndTest {
 
   @Configuration
-  @Import({WebConfiguration.class, DomainConfiguration.class})
+  @Import(CustomersAndOrdersConfiguration.class)
   @EnableAutoConfiguration
   public static class Config {
   }

@@ -1,0 +1,9 @@
+dependencies {
+    implementation project(":orders:orders-domain")
+    implementation project(":money")
+
+    implementation "org.hibernate.validator:hibernate-validator"
+
+    implementation "org.springframework.boot:spring-boot-starter-web"
+
+}

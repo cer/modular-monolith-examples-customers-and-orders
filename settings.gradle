@@ -1,7 +1,20 @@
 rootProject.name = "monolithic-customers-and-orders"
 
 include 'main'
-include 'web'
-include 'domain'
-include 'persistence'
+
+include 'money'
+
+include 'customers:customers-web'
+include 'customers:customers-domain'
+include 'customers:customers-persistence'
+
+include 'orders:orders-web'
+include 'orders:orders-domain'
+include 'orders:orders-persistence'
+
+include 'notifications:notifications-web'
+include 'notifications:notifications-domain'
+include 'notifications:notifications-persistence'
+
+
 include 'test-container-util'
