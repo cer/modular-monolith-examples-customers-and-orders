@@ -1,15 +1,15 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.money.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Objects;
 
 @Embeddable
 @Access(AccessType.FIELD)
@@ -26,23 +26,33 @@ public class Money {
   public Money(int i) {
     this.amount = new BigDecimal(i).setScale(2, RoundingMode.UNNECESSARY);
   }
+
+  @JsonCreator
   public Money(String s) {
     this.amount = new BigDecimal(s).setScale(2, RoundingMode.UNNECESSARY);
   }
 
   @Override
   public String toString() {
-    return ToStringBuilder.reflectionToString(this);
+    return "Money{amount=%s}".formatted(amount);
+  }
+
+  @JsonValue
+  public String asString() {
+    return amount.toString();
   }
 
   @Override
-  public boolean equals(Object obj) {
-    return EqualsBuilder.reflectionEquals(this, obj);
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Money money = (Money) o;
+    return Objects.equals(amount, money.amount);
   }
 
   @Override
   public int hashCode() {
-    return HashCodeBuilder.reflectionHashCode(this);
+    return Objects.hash(amount);
   }
 
   public Money(BigDecimal amount) {

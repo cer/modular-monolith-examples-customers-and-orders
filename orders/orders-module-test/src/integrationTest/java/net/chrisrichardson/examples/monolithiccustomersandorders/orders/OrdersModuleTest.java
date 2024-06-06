@@ -1,6 +1,6 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.orders;
 
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.CustomerService;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CreditManagement;
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CustomerInfo;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
 import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.NotificationService;
@@ -43,7 +43,7 @@ public class OrdersModuleTest {
     }
 
     @MockBean
-    private CustomerService customerInfoService;
+    private CreditManagement creditManagement;
 
     @MockBean
     private NotificationService notificationService;
@@ -70,11 +70,11 @@ public class OrdersModuleTest {
 
         var custInfo = new CustomerInfo(customerId, "Fred", emailAddress, new Money("100"));
 
-        when(customerInfoService.getCustomerInfo(customerId)).thenReturn(custInfo);
+        when(creditManagement.getCustomerInfo(customerId)).thenReturn(custInfo);
 
         var response = post(new CreateOrderRequest(customerId, orderTotal), CreateOrderResponse.class, "/orders");
 
-        verify(customerInfoService).reserveCredit(customerId, response.getOrderId(), orderTotal);
+        verify(creditManagement).reserveCredit(customerId, response.getOrderId(), orderTotal);
 
         verify(notificationService).sendEmail(emailAddress,
                 "OrderConfirmation",

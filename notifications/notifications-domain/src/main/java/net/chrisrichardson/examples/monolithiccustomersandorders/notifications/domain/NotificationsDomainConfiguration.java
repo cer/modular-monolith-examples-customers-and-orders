@@ -11,6 +11,4 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan
 public class NotificationsDomainConfiguration {
 
-
-
 }

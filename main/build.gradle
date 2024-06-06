@@ -32,10 +32,4 @@ dependencies {
 
 }
 
-def thisProject = project
-
-rootProject.subprojects { p ->
-    if (p.name == "main")
-        return;
-    thisProject.tasks.findByName("check").mustRunAfter(":${p.path}:check")
-}
+tasks.findByName("check").mustRunAfter(rootProject.subprojects.findAll { it != project}.collect { ":${it.path}:check"})

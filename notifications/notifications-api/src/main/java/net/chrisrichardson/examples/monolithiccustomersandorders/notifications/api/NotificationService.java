@@ -2,8 +2,7 @@ package net.chrisrichardson.examples.monolithiccustomersandorders.notifications.
 
 import java.util.Map;
 
-public class NotificationService {
-  public void sendEmail(String emailAddress, String templateName, Map<String, Object> params) {
-    // Do something.
-  }
+public interface NotificationService {
+  void sendEmail(String emailAddress, String templateName, Map<String, Object> params);
 }
+

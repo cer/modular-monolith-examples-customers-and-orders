@@ -4,13 +4,11 @@ import net.chrisrichardson.examples.monolithiccustomersandorders.customers.domai
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.domain.CustomerRepository;
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.domain.CustomersDomainConfiguration;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
-import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.NotificationService;
 import net.chrisrichardson.examples.monolithiccustomersandorders.testcontainerutil.PropertyProvidingPostgresSQLContainer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
@@ -49,8 +47,6 @@ public class RepositoriesTest {
   @Autowired
   private TransactionTemplate transactionTemplate;
 
-  @MockBean
-  private NotificationService notificationService;
 
   @Test
   public void shouldSaveAndLoadCustomer() {

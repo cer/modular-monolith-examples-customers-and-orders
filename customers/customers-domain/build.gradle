@@ -6,8 +6,9 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-validation"
 
     implementation project(":money")
-    implementation project(":notifications:notifications-api")
+
     implementation project(":customers:customers-api")
+    implementation project(":customers:customers-api-observer")
 
     implementation "org.postgresql:postgresql:42.3.7"
 

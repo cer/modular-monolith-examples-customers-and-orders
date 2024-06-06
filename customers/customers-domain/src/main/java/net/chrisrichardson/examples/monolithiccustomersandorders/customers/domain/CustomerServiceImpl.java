@@ -4,33 +4,35 @@ package net.chrisrichardson.examples.monolithiccustomersandorders.customers.doma
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.CustomerService;
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CustomerInfo;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
-import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Map;
 
 @Service
 @Transactional
 public class CustomerServiceImpl implements CustomerService {
 
   private final CustomerRepository customerRepository;
-  private final NotificationService notificationService;
+  private final CustomerDomainObserversImpl customerDomainObservers;
 
   @Autowired
-  public CustomerServiceImpl(CustomerRepository customerRepository, NotificationService notificationService) {
+  public CustomerServiceImpl(CustomerRepository customerRepository, CustomerDomainObserversImpl customerDomainObservers) {
     this.customerRepository = customerRepository;
-    this.notificationService = notificationService;
+    this.customerDomainObservers = customerDomainObservers;
   }
 
   @Override
   public CustomerInfo createCustomer(String name, Money creditLimit) {
     Customer customer  = new Customer(name, creditLimit);
     Customer savedCustomer = customerRepository.save(customer);
-    notificationService.sendEmail(savedCustomer.getEmailAddress(), "Welcome", Map.of("name", customer.getName()));
+    customerDomainObservers.noteCustomerCreated(new net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.CustomerInfo(savedCustomer.getId(),
+            customer.getName(),
+            savedCustomer.getEmailAddress(),
+            creditLimit,
+            customer.availableCredit()));
     return makeCustomerInfo(savedCustomer);
   }
+
 
   @Override
   public void reserveCredit(long customerId, long orderId, Money orderTotal) {
