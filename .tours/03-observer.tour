@@ -1,0 +1,27 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "tours/03-observer",
+  "steps": [
+    {
+      "file": "customers/customers-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/domain/CustomerServiceImpl.java",
+      "description": "The `customers` domain publishes events via the Observer pattern.\nFor exmple, an event is published when a `Customer` is created.",
+      "line": 35
+    },
+    {
+      "file": "customers/customers-api-observer/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/api/observer/CustomerDomainObservers.java",
+      "description": "Observers can register by calling `registerObserver()`, which is implemented by the `CustomerDomainObservers` interface.\n\nThis interface is the `customers-api-observer` Gradle subproject, which is another Domain API module for the `customers` domain.",
+      "line": 5
+    },
+    {
+      "file": "notifications/notifications-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/notifications/domain/NotificationServiceImpl.java",
+      "description": "One observer is the `notifications` domain module.\n\nHere's how `NotificationServiceImpl` registers for events.",
+      "line": 25
+    },
+    {
+      "file": "notifications/notifications-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/notifications/domain/NotificationServiceImpl.java",
+      "description": "The `noteCustomerCreated()` method is invoked when a `Customer` is created.\nIt sends a welcome email.",
+      "line": 34
+    }
+  ],
+  "ref": "main"
+}

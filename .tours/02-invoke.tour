@@ -1,0 +1,27 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "tours/02-invoke",
+  "nextTour": "tours/03-observer",
+  "steps": [
+    {
+      "file": "orders/orders-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/orders/domain/OrderService.java",
+      "description": "The `orders` domain synchronously invokes the `customers` domain to reserve credit for an order",
+      "line": 30
+    },
+    {
+      "file": "customers/customers-api-credit-management/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/api/creditmanagement/CreditManagement.java",
+      "description": "It invokes the `reserveCredit()` method of the `CreditManagement` interface.\n\n",
+      "line": 6
+    },
+    {
+      "directory": "customers/customers-api-credit-management",
+      "description": "This interface is defined the `customers-api-credit-management` Gradle subproject.\n\nThis subproject is one of the three Domain API Gradle subprojects defined by the `customers` domain module."
+    },
+    {
+      "file": "customers/customers-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/domain/CustomerServiceImpl.java",
+      "description": "The `CreditManagement` interface is implemented by the `CustomerServiceImpl` class.",
+      "line": 55
+    }
+  ],
+  "ref": "main"
+}

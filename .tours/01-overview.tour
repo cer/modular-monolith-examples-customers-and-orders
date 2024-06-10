@@ -1,0 +1,33 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "tours/01-overview",
+  "nextTour": "tours/02-invoke",
+  "steps": [
+    {
+      "directory": "notifications",
+      "description": "The second domain module is `notifications`."
+    },
+    {
+      "directory": "money",
+      "description": "The first of the four domain modules is `money`."
+    },
+    {
+      "directory": "customers",
+      "description": "The third domain module is `customers`"
+    },
+    {
+      "directory": "orders",
+      "description": "The fourth and final domain module is `orders`"
+    },
+    {
+      "directory": "main",
+      "description": "There's also a `main` Gradle subproject"
+    },
+    {
+      "file": "main/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/CustomersAndOrdersMain.java",
+      "description": "It defines a `CustomersAndOrdersMain`, which has a `main()` method",
+      "line": 7
+    }
+  ],
+  "ref": "main"
+}
