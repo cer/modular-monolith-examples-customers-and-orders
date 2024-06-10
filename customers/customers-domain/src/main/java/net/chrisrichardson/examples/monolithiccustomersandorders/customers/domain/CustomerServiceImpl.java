@@ -2,6 +2,7 @@ package net.chrisrichardson.examples.monolithiccustomersandorders.customers.doma
 
 
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.CustomerService;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CreditManagement;
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CustomerInfo;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import static java.util.stream.Collectors.toList;
 
 @Service
 @Transactional
-public class CustomerServiceImpl implements CustomerService {
+public class CustomerServiceImpl implements CustomerService, CreditManagement {
 
   private final CustomerRepository customerRepository;
   private final CustomerDomainObserversImpl customerDomainObservers;
