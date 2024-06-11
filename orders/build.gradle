@@ -1,9 +1,9 @@
 apply plugin: IntegrationTestsPlugin
 
 dependencies {
-    integrationTestImplementation project(":orders:orders-web")
-    integrationTestImplementation project(":orders:orders-domain")
-    integrationTestImplementation project(":orders:orders-persistence")
+    implementation project(":orders:orders-web")
+    implementation project(":orders:orders-domain")
+    implementation project(":orders:orders-persistence")
 
     integrationTestImplementation project(":test-container-util")
 

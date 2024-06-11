@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(":customers:customers-domain")
+    implementation project(":customers:customers-web")
+    implementation project(":customers:customers-persistence")
+}

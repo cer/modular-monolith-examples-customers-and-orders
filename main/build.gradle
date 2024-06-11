@@ -8,17 +8,11 @@ dependencies {
 
     implementation "org.springframework.boot:spring-boot-starter"
 
-    runtimeOnly project(":customers:customers-domain")
-    runtimeOnly project(":customers:customers-web")
-    runtimeOnly project(":customers:customers-persistence")
+    runtimeOnly project(":customers")
 
-    runtimeOnly project(":orders:orders-domain")
-    runtimeOnly project(":orders:orders-web")
-    runtimeOnly project(":orders:orders-persistence")
+    runtimeOnly project(":orders")
 
-    runtimeOnly project(":notifications:notifications-domain")
-    runtimeOnly project(":notifications:notifications-web")
-    runtimeOnly project(":notifications:notifications-persistence")
+    runtimeOnly project(":notifications")
 
     runtimeOnly "org.springframework.boot:spring-boot-starter-actuator"
 
