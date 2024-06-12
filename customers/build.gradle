@@ -1,5 +1,16 @@
+apply plugin: IntegrationTestsPlugin
+
 dependencies {
     implementation project(":customers:customers-domain")
     implementation project(":customers:customers-web")
     implementation project(":customers:customers-persistence")
+
+    integrationTestImplementation project(":customers:customers-api")
+    integrationTestImplementation project(":customers:customers-api-observer")
+    integrationTestImplementation project(":customers:customers-api-credit-management")
+    integrationTestImplementation "org.springframework.boot:spring-boot-starter-data-jpa"
+
+    integrationTestImplementation project(":test-container-util")
+
+    integrationTestImplementation "org.springframework.boot:spring-boot-starter-web"
 }

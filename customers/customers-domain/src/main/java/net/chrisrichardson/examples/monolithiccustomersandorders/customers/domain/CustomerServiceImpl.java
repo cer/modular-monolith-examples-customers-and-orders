@@ -67,7 +67,7 @@ public class CustomerServiceImpl implements CustomerService, CreditManagement {
   }
 
   private CustomerInfo makeCustomerInfo(Customer customer) {
-    return new CustomerInfo(customer.getId(), customer.getName(), customer.getEmailAddress(), customer.getCreditLimit());
+    return new CustomerInfo(customer.getId(), customer.getName(), customer.getEmailAddress(), customer.getCreditLimit(), customer.availableCredit());
   }
 
   private Customer findRequiredCustomerById(long customerId) {

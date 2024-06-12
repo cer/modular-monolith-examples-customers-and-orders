@@ -1,15 +1,17 @@
-package net.chrisrichardson.examples.monolithiccustomersandorders.orders;
+package net.chrisrichardson.examples.monolithiccustomersandorders.customers;
 
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.CustomerService;
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CreditManagement;
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CustomerInfo;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.CustomerDomainObserver;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.CustomerDomainObservers;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.CustomerInfo;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
-import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.NotificationService;
-import net.chrisrichardson.examples.monolithiccustomersandorders.orders.web.CreateOrderRequest;
-import net.chrisrichardson.examples.monolithiccustomersandorders.orders.web.CreateOrderResponse;
 import net.chrisrichardson.examples.monolithiccustomersandorders.testcontainerutil.PropertyProvidingPostgresSQLContainer;
 import org.jetbrains.annotations.Nullable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -21,13 +23,11 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.web.client.RestClient;
 
-import java.util.Map;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class OrdersModuleTest {
+public class CustomersModuleTest {
 
     @Configuration
     @EnableAutoConfiguration
@@ -42,11 +42,6 @@ public class OrdersModuleTest {
         postgres.startAndRegisterProperties(registry);
     }
 
-    @MockBean
-    private CreditManagement creditManagement;
-
-    @MockBean
-    private NotificationService notificationService;
 
     @LocalServerPort
     private int port;
@@ -57,28 +52,53 @@ public class OrdersModuleTest {
         restClient = RestClient.builder().baseUrl(String.format("http://localhost:" + port)).build();
     }
 
+    @Autowired
+    private CustomerService customerService;
+
+    @Autowired
+    private CreditManagement creditManagement;
+
+    @Autowired
+    private CustomerDomainObservers customerDomainObservers;
+
+    @MockBean
+    private CustomerDomainObserver customerDomainObserver;
+
+    private static boolean registered;
+
+    @BeforeEach
+    public void registerObserver() {
+        if (!registered) {
+            customerDomainObservers.registerObserver(customerDomainObserver);
+            registered = true;
+        }
+    }
+
     @Test
     public void shouldStart() {
     }
 
     @Test
-    public void shouldCreateOrder() {
-        long customerId = System.currentTimeMillis();
-        Money orderTotal = new Money("12.34");
+    public void shouldCreateCustomerAndReserveCredit() {
+        Money creditLimit = new Money("12.34");
+        long orderId = 123L;
 
-        String emailAddress = "fred@example.com";
+        var customer = customerService.createCustomer("Fred", creditLimit);
 
-        var custInfo = new CustomerInfo(customerId, "Fred", emailAddress, new Money("100"), Money.ZERO);
+        assertObserversNotified(customer);
 
-        when(creditManagement.getCustomerInfo(customerId)).thenReturn(custInfo);
+        creditManagement.reserveCredit(customer.customerId(), orderId, creditLimit);
 
-        var response = post(new CreateOrderRequest(customerId, orderTotal), CreateOrderResponse.class, "/orders");
+        var customerInfo = creditManagement.getCustomerInfo(customer.customerId());
+        assertEquals(Money.ZERO, customerInfo.availableCredit());
+    }
 
-        verify(creditManagement).reserveCredit(customerId, response.getOrderId(), orderTotal);
-
-        verify(notificationService).sendEmail(emailAddress,
-                "OrderConfirmation",
-                Map.of("orderId", response.getOrderId()));
+    private void assertObserversNotified(net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CustomerInfo customer) {
+        var arg = ArgumentCaptor.forClass(CustomerInfo.class);
+        verify(customerDomainObserver).noteCustomerCreated(arg.capture());
+        CustomerInfo capturedArg = arg.getValue();
+        assertEquals(customer.customerId(), capturedArg.customerId());
+        assertEquals(customer.creditLimit(), capturedArg.creditLimit());
     }
 
     @Nullable
