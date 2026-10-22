@@ -93,6 +93,20 @@ public class CustomersModuleTest {
         assertEquals(Money.ZERO, customerInfo.availableCredit());
     }
 
+    @Test
+    public void shouldReleaseCredit() {
+        Money creditLimit = new Money("12.34");
+        long orderId = 456L;
+
+        var customer = customerService.createCustomer("Fred", creditLimit);
+
+        creditManagement.reserveCredit(customer.customerId(), orderId, creditLimit);
+        creditManagement.releaseCredit(customer.customerId(), orderId);
+
+        var customerInfo = creditManagement.getCustomerInfo(customer.customerId());
+        assertEquals(creditLimit, customerInfo.availableCredit());
+    }
+
     private void assertObserversNotified(net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CustomerInfo customer) {
         var arg = ArgumentCaptor.forClass(CustomerInfo.class);
         verify(customerDomainObserver).noteCustomerCreated(arg.capture());

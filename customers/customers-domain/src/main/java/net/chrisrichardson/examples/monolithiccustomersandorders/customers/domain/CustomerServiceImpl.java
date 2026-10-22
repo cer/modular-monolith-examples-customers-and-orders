@@ -58,7 +58,7 @@ public class CustomerServiceImpl implements CustomerService, CreditManagement {
 
   @Override
   public void releaseCredit(long customerId, long orderId) {
-    findRequiredCustomerById(orderId).releaseCredit(orderId);
+    findRequiredCustomerById(customerId).releaseCredit(orderId);
   }
 
   @Override
