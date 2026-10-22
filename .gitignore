@@ -13,3 +13,4 @@ helm-repository
 *.tgz
 Chart.lock
 _download
+.hitl/
