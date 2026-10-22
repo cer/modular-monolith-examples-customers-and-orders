@@ -1,0 +1,20 @@
+plugins {
+    id "com.google.protobuf" version "0.9.4"
+}
+
+dependencies {
+    api "io.grpc:grpc-protobuf:$grpcVersion"
+    api "io.grpc:grpc-stub:$grpcVersion"
+    api "io.grpc:grpc-inprocess:$grpcVersion"
+    compileOnly "org.apache.tomcat:annotations-api:6.0.53"
+}
+
+protobuf {
+    protoc { artifact = "com.google.protobuf:protoc:$protobufVersion" }
+    plugins {
+        grpc { artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion" }
+    }
+    generateProtoTasks {
+        all()*.plugins { grpc {} }
+    }
+}

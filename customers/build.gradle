@@ -4,6 +4,7 @@ dependencies {
     implementation project(":customers:customers-domain")
     implementation project(":customers:customers-web")
     implementation project(":customers:customers-persistence")
+    implementation project(":customers:customers-credit-management-grpc-server")
 
     integrationTestImplementation project(":customers:customers-api")
     integrationTestImplementation project(":customers:customers-api-observer")

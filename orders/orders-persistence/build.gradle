@@ -3,7 +3,6 @@ apply plugin: IntegrationTestsPlugin
 dependencies {
     implementation "org.postgresql:postgresql"
 
-    integrationTestImplementation project(":customers:customers-api-credit-management")
     integrationTestImplementation project(":notifications:notifications-api")
 
     integrationTestImplementation project(":orders:orders-domain")

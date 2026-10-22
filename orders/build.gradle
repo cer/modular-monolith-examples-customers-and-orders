@@ -4,10 +4,11 @@ dependencies {
     implementation project(":orders:orders-web")
     implementation project(":orders:orders-domain")
     implementation project(":orders:orders-persistence")
+    implementation project(":orders:credit-management-java-proxy")
+    implementation project(":orders:credit-management-grpc-proxy")
 
     integrationTestImplementation project(":test-container-util")
 
-    integrationTestImplementation project(":customers:customers-api-credit-management")
     integrationTestImplementation project(":money")
     integrationTestImplementation project(":notifications:notifications-api")
 

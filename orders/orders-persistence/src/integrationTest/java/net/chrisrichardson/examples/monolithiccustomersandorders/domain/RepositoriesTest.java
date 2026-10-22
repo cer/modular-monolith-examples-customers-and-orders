@@ -1,6 +1,6 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.domain;
 
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CreditManagement;
+import net.chrisrichardson.examples.monolithiccustomersandorders.orders.domain.CustomerCreditService;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
 import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.NotificationService;
 import net.chrisrichardson.examples.monolithiccustomersandorders.orders.domain.Order;
@@ -50,7 +50,7 @@ public class RepositoriesTest {
   private TransactionTemplate transactionTemplate;
 
   @MockBean
-  private CreditManagement customerInfoService;
+  private CustomerCreditService customerCreditService;
 
   @MockBean
   private NotificationService notificationService;

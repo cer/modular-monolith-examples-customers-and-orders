@@ -1,7 +1,6 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.orders;
 
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CreditManagement;
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CustomerInfo;
+import net.chrisrichardson.examples.monolithiccustomersandorders.orders.domain.CustomerCreditService;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
 import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.NotificationService;
 import net.chrisrichardson.examples.monolithiccustomersandorders.orders.web.CreateOrderRequest;
@@ -43,7 +42,7 @@ public class OrdersModuleTest {
     }
 
     @MockBean
-    private CreditManagement creditManagement;
+    private CustomerCreditService customerCreditService;
 
     @MockBean
     private NotificationService notificationService;
@@ -68,13 +67,12 @@ public class OrdersModuleTest {
 
         String emailAddress = "fred@example.com";
 
-        var custInfo = new CustomerInfo(customerId, "Fred", emailAddress, new Money("100"), Money.ZERO);
 
-        when(creditManagement.getCustomerInfo(customerId)).thenReturn(custInfo);
+        when(customerCreditService.getCustomerEmailAddress(customerId)).thenReturn(emailAddress);
 
         var response = post(new CreateOrderRequest(customerId, orderTotal), CreateOrderResponse.class, "/orders");
 
-        verify(creditManagement).reserveCredit(customerId, response.getOrderId(), orderTotal);
+        verify(customerCreditService).reserveCredit(customerId, response.getOrderId(), orderTotal);
 
         verify(notificationService).sendEmail(emailAddress,
                 "OrderConfirmation",

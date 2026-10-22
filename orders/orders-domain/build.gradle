@@ -1,7 +1,6 @@
 
 dependencies {
     api project(":money")
-    implementation project(":customers:customers-api-credit-management")
     implementation project(":notifications:notifications-api")
 
 

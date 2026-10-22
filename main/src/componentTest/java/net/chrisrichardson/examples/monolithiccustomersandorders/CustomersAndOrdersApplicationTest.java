@@ -13,6 +13,7 @@ import org.springframework.test.context.DynamicPropertySource;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 
 
@@ -61,6 +62,33 @@ public class CustomersAndOrdersApplicationTest {
             .extract().path("orderId");
 
 
+  }
+
+  @Test
+  public void shouldNotSaveOrderThatExceedsCreditLimit() {
+    int customerId = given().
+            contentType(ContentType.JSON).
+            body(Map.of("name", "Fred", "creditLimit", "100")).
+            when().
+            post("/customers").
+            then().
+            statusCode(200)
+            .extract().path("customerId");
+
+    given().
+            contentType(ContentType.JSON).
+            body(Map.of("customerId", customerId, "orderTotal", "150")).
+            when().
+            post("/orders").
+            then().
+            statusCode(500);
+
+    given().
+            when().
+            get("/orders/customer/{customerId}", customerId).
+            then().
+            statusCode(200)
+            .body("size()", equalTo(0));
   }
 
   // Move these down

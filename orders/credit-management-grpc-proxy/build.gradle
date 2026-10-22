@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(":orders:orders-domain")
+    implementation project(":customers:customers-api-credit-management-grpc")
+    implementation "org.springframework:spring-context"
+}

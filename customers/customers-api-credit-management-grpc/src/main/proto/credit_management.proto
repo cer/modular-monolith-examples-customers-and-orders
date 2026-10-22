@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package customers.creditmanagement;
+
+option java_multiple_files = true;
+option java_package = "net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.grpc";
+option java_outer_classname = "CreditManagementProto";
+
+// gRPC version of CreditManagement in customers-api-credit-management.
+// Errors: NOT_FOUND for an unknown customer, FAILED_PRECONDITION when the credit limit is exceeded.
+service CreditManagementService {
+  rpc ReserveCredit(ReserveCreditRequest) returns (ReserveCreditResponse);
+  rpc ReleaseCredit(ReleaseCreditRequest) returns (ReleaseCreditResponse);
+  rpc GetCustomerInfo(GetCustomerInfoRequest) returns (GetCustomerInfoResponse);
+}
+
+// Money amounts are decimal strings, for example "12.34".
+
+message ReserveCreditRequest {
+  int64 customer_id = 1;
+  int64 order_id = 2;
+  string order_total = 3;
+}
+
+message ReserveCreditResponse {
+}
+
+message ReleaseCreditRequest {
+  int64 customer_id = 1;
+  int64 order_id = 2;
+}
+
+message ReleaseCreditResponse {
+}
+
+message GetCustomerInfoRequest {
+  int64 customer_id = 1;
+}
+
+message GetCustomerInfoResponse {
+  int64 customer_id = 1;
+  string name = 2;
+  string email_address = 3;
+  string credit_limit = 4;
+  string available_credit = 5;
+}
