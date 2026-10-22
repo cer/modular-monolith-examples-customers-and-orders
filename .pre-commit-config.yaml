@@ -19,9 +19,9 @@ repos:
         language: system
         pass_filenames: false
         stages: [pre-commit]
-      - id: gradle-test
-        name: Run ./gradlew test
-        entry: ./gradlew test
+      - id: gradle-build
+        name: Run ./gradlew build
+        entry: ./gradlew build
         language: script
         pass_filenames: false
         always_run: true
