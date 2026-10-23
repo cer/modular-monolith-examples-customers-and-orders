@@ -1,4 +1,5 @@
 dependencies {
     constraints {
-        api "org.postgresql:postgresql:$postgresqlVersion"    }
+        api "org.postgresql:postgresql:$postgresqlVersion"
+    }
 }

@@ -21,7 +21,6 @@ include 'orders:orders-persistence'
 include 'orders:credit-management-java-proxy'
 include 'orders:credit-management-grpc-proxy'
 
-include 'notifications:notifications-web'
 include 'notifications:notifications-domain'
 include 'notifications:notifications-persistence'
 include 'notifications:notifications-api'
