@@ -9,9 +9,9 @@ dependencies {
     integrationTestImplementation project(":customers:customers-api")
     integrationTestImplementation project(":customers:customers-api-observer")
     integrationTestImplementation project(":customers:customers-api-credit-management")
-    integrationTestImplementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    integrationTestImplementation "org.springframework.boot:spring-boot-starter-data-jpa-test"
 
     integrationTestImplementation project(":test-container-util")
 
-    integrationTestImplementation "org.springframework.boot:spring-boot-starter-web"
+    integrationTestImplementation "org.springframework.boot:spring-boot-starter-webmvc-test"
 }

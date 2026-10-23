@@ -7,20 +7,20 @@ import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.o
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.CustomerInfo;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
 import net.chrisrichardson.examples.monolithiccustomersandorders.testcontainerutil.PropertyProvidingPostgresSQLContainer;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.web.client.RestClient;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,7 +35,7 @@ public class CustomersModuleTest {
     public static class Config {
     }
 
-    private static PropertyProvidingPostgresSQLContainer<?> postgres = new PropertyProvidingPostgresSQLContainer<>();
+    private static PropertyProvidingPostgresSQLContainer postgres = new PropertyProvidingPostgresSQLContainer();
 
     @DynamicPropertySource
     static void registerDatabaseProperties(DynamicPropertyRegistry registry) {
@@ -61,7 +61,7 @@ public class CustomersModuleTest {
     @Autowired
     private CustomerDomainObservers customerDomainObservers;
 
-    @MockBean
+    @MockitoBean
     private CustomerDomainObserver customerDomainObserver;
 
     private static boolean registered;

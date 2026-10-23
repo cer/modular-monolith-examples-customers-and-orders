@@ -31,10 +31,10 @@ class ComponentTestsPlugin implements Plugin<Project> {
 
         project.configurations {
             componentTestImplementation.extendsFrom testImplementation
-            componentTestRuntimeOnly.extendsFrom runtimeOnly
+            componentTestRuntimeOnly.extendsFrom testRuntimeOnly
         }
 
-        project.task("componentTest", type: Test) {
+        project.tasks.register("componentTest", Test) {
             testClassesDirs = project.sourceSets.componentTest.output.classesDirs
             classpath = project.sourceSets.componentTest.runtimeClasspath
             if (project.tasks.findByName("integrationTest"))
@@ -45,14 +45,14 @@ class ComponentTestsPlugin implements Plugin<Project> {
             systemProperty "eventuate.servicecontainer.serviceimage.version", project.version
         }
 
-        project.componentTest {
+        project.tasks.named("componentTest") {
             useJUnitPlatform()
         }
 
-        project.tasks.findByName("check").dependsOn(project.tasks.componentTest)
+        project.tasks.named("check") { dependsOn("componentTest") }
 
-        project.tasks.withType(Test) {
-            reports.html.destination = project.file("${project.reporting.baseDir}/${name}")
+        project.tasks.withType(Test).configureEach {
+            reports.html.outputLocation = project.layout.buildDirectory.dir("reports/${name}")
         }
     }
 }

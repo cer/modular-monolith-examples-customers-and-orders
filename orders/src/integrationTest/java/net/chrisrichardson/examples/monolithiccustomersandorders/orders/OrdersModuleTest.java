@@ -6,18 +6,18 @@ import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.a
 import net.chrisrichardson.examples.monolithiccustomersandorders.orders.web.CreateOrderRequest;
 import net.chrisrichardson.examples.monolithiccustomersandorders.orders.web.CreateOrderResponse;
 import net.chrisrichardson.examples.monolithiccustomersandorders.testcontainerutil.PropertyProvidingPostgresSQLContainer;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.web.client.RestClient;
 
 import java.util.Map;
@@ -34,17 +34,17 @@ public class OrdersModuleTest {
     public static class Config {
     }
 
-    private static PropertyProvidingPostgresSQLContainer<?> postgres = new PropertyProvidingPostgresSQLContainer<>();
+    private static PropertyProvidingPostgresSQLContainer postgres = new PropertyProvidingPostgresSQLContainer();
 
     @DynamicPropertySource
     static void registerDatabaseProperties(DynamicPropertyRegistry registry) {
         postgres.startAndRegisterProperties(registry);
     }
 
-    @MockBean
+    @MockitoBean
     private CustomerCreditService customerCreditService;
 
-    @MockBean
+    @MockitoBean
     private NotificationService notificationService;
 
     @LocalServerPort

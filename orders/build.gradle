@@ -12,7 +12,7 @@ dependencies {
     integrationTestImplementation project(":money")
     integrationTestImplementation project(":notifications:notifications-api")
 
-    integrationTestImplementation "org.springframework.boot:spring-boot-starter-web"
+    integrationTestImplementation "org.springframework.boot:spring-boot-starter-webmvc-test"
 
 
 }

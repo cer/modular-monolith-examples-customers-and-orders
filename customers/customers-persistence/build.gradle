@@ -5,5 +5,6 @@ dependencies {
 
     integrationTestImplementation project(":customers:customers-domain")
     integrationTestImplementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    integrationTestImplementation "org.springframework.boot:spring-boot-starter-data-jpa-test"
     integrationTestImplementation project(":test-container-util");
 }

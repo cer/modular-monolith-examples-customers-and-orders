@@ -20,7 +20,7 @@ import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 @SpringBootTest(classes= CustomersAndOrdersMain.class, webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CustomersAndOrdersApplicationTest {
 
-  private static final PropertyProvidingPostgresSQLContainer<?> postgres = new PropertyProvidingPostgresSQLContainer<>();
+  private static final PropertyProvidingPostgresSQLContainer postgres = new PropertyProvidingPostgresSQLContainer();
 
   @DynamicPropertySource
   static void registerDatabaseProperties(DynamicPropertyRegistry registry) {

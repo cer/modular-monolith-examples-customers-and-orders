@@ -1,15 +1,15 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.testcontainerutil;
 
 import org.springframework.test.context.DynamicPropertyRegistry;
-import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.postgresql.PostgreSQLContainer;
 
-public class PropertyProvidingPostgresSQLContainer<SELF extends PropertyProvidingPostgresSQLContainer<SELF>> extends PostgreSQLContainer<SELF> {
+public class PropertyProvidingPostgresSQLContainer extends PostgreSQLContainer {
   public static final String POSTGRES_USER = "postgresuser";
   public static final String POSTGRES_PASSWORD = "postgresspassword";
   public static final String POSTGRES_DB = "customers_and_orders";
 
   public PropertyProvidingPostgresSQLContainer() {
-    super("postgres:11");
+    super("postgres:16");
     this.withDatabaseName(POSTGRES_DB)
             .withUsername(POSTGRES_USER)
             .withPassword(POSTGRES_PASSWORD)

@@ -20,22 +20,22 @@ class IntegrationTestsPlugin implements Plugin<Project> {
 
         project.configurations {
             integrationTestImplementation.extendsFrom testImplementation
-            integrationTestRuntime.extendsFrom testRuntime
+            integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
         }
 
-        project.task("integrationTest", type: Test) {
+        project.tasks.register("integrationTest", Test) {
             testClassesDirs = project.sourceSets.integrationTest.output.classesDirs
             classpath = project.sourceSets.integrationTest.runtimeClasspath
             shouldRunAfter("test")
         }
-        project.tasks.findByName("check").dependsOn(project.tasks.integrationTest)
+        project.tasks.named("check") { dependsOn("integrationTest") }
 
 
-        project.integrationTest {
+        project.tasks.named("integrationTest") {
             useJUnitPlatform()
         }
-        project.tasks.withType(Test) {
-            reports.html.destination = project.file("${project.reporting.baseDir}/${name}")
+        project.tasks.withType(Test).configureEach {
+            reports.html.outputLocation = project.layout.buildDirectory.dir("reports/${name}")
         }
     }
 }
