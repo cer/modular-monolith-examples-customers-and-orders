@@ -127,7 +127,11 @@ A change, for example, to the `web` adapter doesn't require the `domain` or `per
 
 ### Domain modules have a Domain API Gradle sub-project
 
-The `Customers` and `Notifications` domain modules - specifically their domain logic - are used by the `Orders` domain module.
+The `Customers` and `Notifications` domain modules - specifically their domain logic - are used by other domain modules:
+
+* `Orders` invokes `Customers` to reserve and release credit, and invokes `Notifications` to send emails
+* `Notifications` registers with `Customers` as an observer, so that it's notified when a customer is created
+
 In order to minimize build-time coupling, each of those domain modules has a https://microservices.io/post/architecture/2023/09/12/how-modular-can-your-monolith-go-part-4-physical-design.html#using-domain-api-modules-to-reduce-build-time-coupling[Domain API Gradle sub-project], which defines that module's API.
 For example, the `Customers` domain has a `customers-api` Gradle sub-project, which contains its API classes.
 
