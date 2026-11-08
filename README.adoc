@@ -123,6 +123,31 @@ As a result, the observer runs in the transaction that created the customer, and
 It injects a `CustomerDomainObserversInProcessServer` bean, which `Customers` defines only after its in-process server has started.
 As a result, `Notifications` can't call `RegisterObserver` before that server has started.
 
+### The notifications API also has a gRPC version
+
+`Orders` invokes the `Notifications` domain module to send an order confirmation email.
+`orders-domain` calls `NotificationSender`, an interface that it defines.
+
+The `Notifications` domain module has two versions of its API:
+
+* POJO API - the `NotificationService` Java interface, defined by `notifications-api-pojo`
+* gRPC API - `NotificationService`, a gRPC service defined by `notifications-api-grpc`
+
+By default, `Orders` uses the POJO API.
+When the `grpc` Spring profile is active, `Orders` uses the gRPC API.
+
+The gRPC option consists of these Gradle sub-projects:
+
+* `notifications-api-grpc` - the Domain API sub-project: `notifications.proto` and the generated Java classes
+* `notifications-grpc-server` - an inbound adapter in `Notifications` that implements the gRPC service by delegating to the POJO `NotificationService`
+* `orders-notifications-grpc-proxy` - an outbound adapter in `Orders` that implements `NotificationSender` using a gRPC blocking stub
+
+The POJO option is implemented by `orders-notifications-pojo-proxy`.
+
+`NotificationService.sendEmail()` takes the email template's parameters as a `Map<String, Object>`.
+Protobuf has no type for an arbitrary Java object, so `notifications.proto` defines them as a `map<string, string>`.
+The proxy converts each value with `String.valueOf()`, for example an order id of `42` becomes `"42"`.
+
 ### Running the application with the gRPC API
 
 Activate the `grpc` Spring profile, for example:
@@ -165,7 +190,7 @@ For example, the `Customers` domain has a `customers-api` Gradle sub-project, wh
 
 A domain module's clients only depend on its Domain API Gradle sub-project.
 Moreover, its clients are tested using mocks of the API.
-For example, the `Orders` domain is tested using a mock of `CustomerCreditService`, which `Orders` uses to call the `Customers` domain's API.
+For example, the `Orders` domain is tested using mocks of `CustomerCreditService` and `NotificationSender`, which `Orders` uses to call the `Customers` and `Notifications` domains' APIs.
 As a result, a domain module's implementation can be changed without having to recompile/retest its clients.
 
 ### Uses the Interface Segregation Principle (ISP) to define narrower APIs.

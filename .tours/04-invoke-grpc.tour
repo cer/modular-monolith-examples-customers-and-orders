@@ -6,7 +6,7 @@
     {
       "file": "orders/orders-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/orders/domain/OrderService.java",
       "description": "This tour follows the same call when the `grpc` Spring profile is active.\n`OrderService` is unchanged: it invokes `CustomerCreditService`.",
-      "line": 29
+      "line": 28
     },
     {
       "file": "orders/orders-credit-management-grpc-proxy/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/orders/creditmanagement/grpcproxy/CreditManagementGrpcProxyConfiguration.java",
@@ -42,6 +42,31 @@
       "file": "customers/customers-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/domain/CustomerServiceImpl.java",
       "description": "`CreditManagement` is implemented by `CustomerServiceImpl`, just as in the POJO version.",
       "line": 55
+    },
+    {
+      "file": "orders/orders-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/orders/domain/OrderService.java",
+      "description": "After reserving credit, `OrderService` calls `NotificationSender` to send an order confirmation email.",
+      "line": 31
+    },
+    {
+      "file": "orders/orders-notifications-grpc-proxy/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/orders/notifications/grpcproxy/NotificationGrpcProxy.java",
+      "description": "With the `grpc` profile active, `NotificationSender` is implemented by `NotificationGrpcProxy`, in the `orders-notifications-grpc-proxy` Gradle subproject.\nProtobuf has no type for an arbitrary Java object, so it converts each template parameter with `String.valueOf()`.",
+      "line": 27
+    },
+    {
+      "file": "notifications/notifications-api-grpc/src/main/proto/notifications.proto",
+      "description": "`notifications.proto`, in the `notifications-api-grpc` Gradle subproject, defines the template parameters as a `map<string, string>`.",
+      "line": 18
+    },
+    {
+      "file": "notifications/notifications-grpc-server/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/notifications/grpcserver/NotificationGrpcService.java",
+      "description": "`NotificationGrpcService`, in the `notifications-grpc-server` Gradle subproject, invokes the POJO `NotificationService`.\nLike the credit management server, it runs on the caller's thread, inside the caller's transaction.",
+      "line": 25
+    },
+    {
+      "file": "notifications/notifications-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/notifications/domain/NotificationServiceImpl.java",
+      "description": "`NotificationService` is implemented by `NotificationServiceImpl`, just as in the POJO version.",
+      "line": 11
     }
   ],
   "ref": "main"

@@ -6,7 +6,7 @@
     {
       "file": "orders/orders-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/orders/domain/OrderService.java",
       "description": "The `orders` domain synchronously invokes the `customers` domain to reserve credit for an order.\nIt invokes the `reserveCredit()` method of the `CustomerCreditService` interface.",
-      "line": 29
+      "line": 28
     },
     {
       "file": "orders/orders-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/orders/domain/CustomerCreditService.java",
@@ -36,6 +36,26 @@
       "file": "customers/customers-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/domain/CustomerServiceImpl.java",
       "description": "The `CreditManagement` interface is implemented by the `CustomerServiceImpl` class.",
       "line": 55
+    },
+    {
+      "file": "orders/orders-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/orders/domain/OrderService.java",
+      "description": "After reserving credit, `OrderService` invokes the `notifications` domain to send an order confirmation email.\nIt calls `NotificationSender`.",
+      "line": 31
+    },
+    {
+      "file": "orders/orders-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/orders/domain/NotificationSender.java",
+      "description": "`NotificationSender` is an interface defined by `orders-domain`.\nIt describes what `orders` needs from `notifications`.",
+      "line": 11
+    },
+    {
+      "file": "orders/orders-notifications-pojo-proxy/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/orders/notifications/pojoproxy/NotificationPojoProxy.java",
+      "description": "By default, `NotificationSender` is implemented by `NotificationPojoProxy`, in the `orders-notifications-pojo-proxy` Gradle subproject.\nIt invokes `NotificationService`, which is defined by the `notifications-api-pojo` Gradle subproject.",
+      "line": 18
+    },
+    {
+      "file": "notifications/notifications-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/notifications/domain/NotificationServiceImpl.java",
+      "description": "`NotificationService` is implemented by `NotificationServiceImpl`.",
+      "line": 11
     }
   ],
   "ref": "main"
