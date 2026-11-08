@@ -4,7 +4,7 @@ dependencies {
     implementation "org.postgresql:postgresql"
 
     integrationTestImplementation project(":notifications:notifications-domain")
-    integrationTestImplementation project(':customers:customers-api-observer')
+    integrationTestImplementation project(':customers:customers-api-observer-pojo')
 
     integrationTestImplementation "org.springframework.boot:spring-boot-starter-data-jpa"
     integrationTestImplementation project(":test-container-util");

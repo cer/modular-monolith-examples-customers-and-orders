@@ -1,4 +1,4 @@
-package net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer;
+package net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.pojo;
 
 public interface CustomerDomainObservers {
 

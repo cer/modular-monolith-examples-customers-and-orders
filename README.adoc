@@ -147,7 +147,7 @@ It has three Domain Modules API Gradle sub-projects:
 
 * `customers-api` - defines CRUD operations
 * `customers-api-credit-management-pojo` - defines operations for managing credit
-* `customers-api-observer` - for registering observers of the `Customers` domain
+* `customers-api-observer-pojo` - for registering observers of the `Customers` domain
 
 As a result, each client only build-time coupled to those APIs that it's actually using.
 

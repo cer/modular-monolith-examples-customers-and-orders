@@ -32,7 +32,7 @@ public class CustomerServiceImpl implements CustomerService, CreditManagement {
   public CustomerInfo createCustomer(String name, Money creditLimit) {
     Customer customer  = new Customer(name, creditLimit);
     Customer savedCustomer = customerRepository.save(customer);
-    customerDomainObservers.noteCustomerCreated(new net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.CustomerInfo(savedCustomer.getId(),
+    customerDomainObservers.noteCustomerCreated(new net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.pojo.CustomerInfo(savedCustomer.getId(),
             customer.getName(),
             savedCustomer.getEmailAddress(),
             creditLimit,

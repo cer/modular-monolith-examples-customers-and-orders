@@ -11,7 +11,7 @@ include 'customers:customers-domain'
 include 'customers:customers-persistence'
 include 'customers:customers-api'
 include 'customers:customers-api-credit-management-pojo'
-include 'customers:customers-api-observer'
+include 'customers:customers-api-observer-pojo'
 include 'customers:customers-api-credit-management-grpc'
 include 'customers:customers-credit-management-grpc-server'
 

@@ -1,9 +1,9 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.notifications.domain;
 
 import jakarta.annotation.PostConstruct;
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.CustomerDomainObserver;
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.CustomerDomainObservers;
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.CustomerInfo;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.pojo.CustomerDomainObserver;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.pojo.CustomerDomainObservers;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.pojo.CustomerInfo;
 import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

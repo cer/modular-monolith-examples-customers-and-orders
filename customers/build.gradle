@@ -7,7 +7,7 @@ dependencies {
     implementation project(":customers:customers-credit-management-grpc-server")
 
     integrationTestImplementation project(":customers:customers-api")
-    integrationTestImplementation project(":customers:customers-api-observer")
+    integrationTestImplementation project(":customers:customers-api-observer-pojo")
     integrationTestImplementation project(":customers:customers-api-credit-management-pojo")
     integrationTestImplementation "org.springframework.boot:spring-boot-starter-data-jpa-test"
 

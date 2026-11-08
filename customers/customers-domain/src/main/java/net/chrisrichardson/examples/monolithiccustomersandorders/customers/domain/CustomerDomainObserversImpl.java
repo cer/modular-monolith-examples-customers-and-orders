@@ -1,8 +1,8 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.customers.domain;
 
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.CustomerDomainObserver;
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.CustomerDomainObservers;
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.CustomerInfo;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.pojo.CustomerDomainObserver;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.pojo.CustomerDomainObservers;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.pojo.CustomerInfo;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;

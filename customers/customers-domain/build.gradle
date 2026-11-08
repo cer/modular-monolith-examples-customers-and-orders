@@ -7,6 +7,6 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-validation"
 
     implementation project(":customers:customers-api")
-    implementation project(":customers:customers-api-observer")
+    implementation project(":customers:customers-api-observer-pojo")
 }
 

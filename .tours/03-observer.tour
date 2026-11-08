@@ -8,8 +8,8 @@
       "line": 35
     },
     {
-      "file": "customers/customers-api-observer/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/api/observer/CustomerDomainObservers.java",
-      "description": "Observers can register by calling `registerObserver()`, which is implemented by the `CustomerDomainObservers` interface.\n\nThis interface is the `customers-api-observer` Gradle subproject, which is another Domain API module for the `customers` domain.",
+      "file": "customers/customers-api-observer-pojo/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/api/observer/pojo/CustomerDomainObservers.java",
+      "description": "Observers can register by calling `registerObserver()`, which is implemented by the `CustomerDomainObservers` interface.\n\nThis interface is the `customers-api-observer-pojo` Gradle subproject, which is another Domain API module for the `customers` domain.",
       "line": 5
     },
     {
