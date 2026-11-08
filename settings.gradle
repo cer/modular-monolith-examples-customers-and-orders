@@ -22,6 +22,7 @@ include 'orders:orders-domain'
 include 'orders:orders-persistence'
 include 'orders:orders-credit-management-pojo-proxy'
 include 'orders:orders-credit-management-grpc-proxy'
+include 'orders:orders-notifications-pojo-proxy'
 
 include 'notifications:notifications-domain'
 include 'notifications:notifications-persistence'

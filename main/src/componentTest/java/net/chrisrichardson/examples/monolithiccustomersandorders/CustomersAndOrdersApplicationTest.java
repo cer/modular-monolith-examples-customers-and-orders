@@ -18,6 +18,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
@@ -111,6 +112,31 @@ public class CustomersAndOrdersApplicationTest {
             .extract().path("customerId");
 
     verify(notificationService).sendEmail(any(), eq("customer-created"), eq(Map.of("customerId", (long) customerId, "name", "Fred")));
+  }
+
+  @Test
+  public void shouldSendOrderConfirmationWhenOrderCreated() {
+    int customerId = given().
+            contentType(ContentType.JSON).
+            body(Map.of("name", "Fred", "creditLimit", "100")).
+            when().
+            post("/customers").
+            then().
+            statusCode(200)
+            .extract().path("customerId");
+
+    int orderId = given().
+            contentType(ContentType.JSON).
+            body(Map.of("customerId", customerId, "orderTotal", "18")).
+            when().
+            post("/orders").
+            then().
+            statusCode(200)
+            .extract().path("orderId");
+
+    // The gRPC version passes params as strings
+    verify(notificationService).sendEmail(any(), eq("OrderConfirmation"),
+            argThat(params -> String.valueOf(orderId).equals(String.valueOf(params.get("orderId")))));
   }
 
   // Move these down

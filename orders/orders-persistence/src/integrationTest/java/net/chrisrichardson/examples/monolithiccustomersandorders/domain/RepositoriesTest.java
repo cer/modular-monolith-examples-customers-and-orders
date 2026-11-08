@@ -1,8 +1,8 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.domain;
 
 import net.chrisrichardson.examples.monolithiccustomersandorders.orders.domain.CustomerCreditService;
+import net.chrisrichardson.examples.monolithiccustomersandorders.orders.domain.NotificationSender;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
-import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.pojo.NotificationService;
 import net.chrisrichardson.examples.monolithiccustomersandorders.orders.domain.Order;
 import net.chrisrichardson.examples.monolithiccustomersandorders.orders.domain.OrderRepository;
 import net.chrisrichardson.examples.monolithiccustomersandorders.orders.domain.OrderState;
@@ -53,7 +53,7 @@ public class RepositoriesTest {
   private CustomerCreditService customerCreditService;
 
   @MockitoBean
-  private NotificationService notificationService;
+  private NotificationSender notificationSender;
 
 
   @Test

@@ -6,11 +6,11 @@ dependencies {
     implementation project(":orders:orders-persistence")
     implementation project(":orders:orders-credit-management-pojo-proxy")
     implementation project(":orders:orders-credit-management-grpc-proxy")
+    implementation project(":orders:orders-notifications-pojo-proxy")
 
     integrationTestImplementation project(":test-container-util")
 
     integrationTestImplementation project(":money")
-    integrationTestImplementation project(":notifications:notifications-api-pojo")
 
     integrationTestImplementation "org.springframework.boot:spring-boot-starter-webmvc-test"
 

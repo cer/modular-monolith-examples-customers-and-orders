@@ -1,7 +1,6 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.orders.domain;
 
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
-import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.pojo.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,13 +11,13 @@ import java.util.Map;
 public class OrderService {
 
   private final OrderRepository orderRepository;
-  private final NotificationService notificationService;
+  private final NotificationSender notificationSender;
   private final CustomerCreditService customerCreditService;
 
     @Autowired
-  public OrderService(OrderRepository orderRepository, NotificationService notificationService, CustomerCreditService customerCreditService) {
+  public OrderService(OrderRepository orderRepository, NotificationSender notificationSender, CustomerCreditService customerCreditService) {
     this.orderRepository = orderRepository;
-    this.notificationService = notificationService;
+    this.notificationSender = notificationSender;
     this.customerCreditService = customerCreditService;
    }
 
@@ -29,7 +28,7 @@ public class OrderService {
       customerCreditService.reserveCredit(customerId, order.getId(), orderTotal);
       order.noteApproved();
       var emailAddress = customerCreditService.getCustomerEmailAddress(customerId);
-      notificationService.sendEmail(emailAddress, "OrderConfirmation", Map.of("orderId", order.getId()));
+      notificationSender.sendEmail(emailAddress, "OrderConfirmation", Map.of("orderId", order.getId()));
       return order;
   }
 

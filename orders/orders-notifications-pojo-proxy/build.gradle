@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(":orders:orders-domain")
+    implementation project(":notifications:notifications-api-pojo")
+    implementation "org.springframework:spring-context"
+}

@@ -3,7 +3,6 @@ apply plugin: IntegrationTestsPlugin
 dependencies {
     implementation "org.postgresql:postgresql"
 
-    integrationTestImplementation project(":notifications:notifications-api-pojo")
 
     integrationTestImplementation project(":orders:orders-domain")
     integrationTestImplementation "org.springframework.boot:spring-boot-starter-data-jpa"

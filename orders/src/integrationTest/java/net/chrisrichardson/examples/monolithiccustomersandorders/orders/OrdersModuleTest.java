@@ -1,8 +1,8 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.orders;
 
 import net.chrisrichardson.examples.monolithiccustomersandorders.orders.domain.CustomerCreditService;
+import net.chrisrichardson.examples.monolithiccustomersandorders.orders.domain.NotificationSender;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
-import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.pojo.NotificationService;
 import net.chrisrichardson.examples.monolithiccustomersandorders.orders.web.CreateOrderRequest;
 import net.chrisrichardson.examples.monolithiccustomersandorders.orders.web.CreateOrderResponse;
 import net.chrisrichardson.examples.monolithiccustomersandorders.testcontainerutil.PropertyProvidingPostgresSQLContainer;
@@ -45,7 +45,7 @@ public class OrdersModuleTest {
     private CustomerCreditService customerCreditService;
 
     @MockitoBean
-    private NotificationService notificationService;
+    private NotificationSender notificationSender;
 
     @LocalServerPort
     private int port;
@@ -74,7 +74,7 @@ public class OrdersModuleTest {
 
         verify(customerCreditService).reserveCredit(customerId, response.getOrderId(), orderTotal);
 
-        verify(notificationService).sendEmail(emailAddress,
+        verify(notificationSender).sendEmail(emailAddress,
                 "OrderConfirmation",
                 Map.of("orderId", response.getOrderId()));
     }

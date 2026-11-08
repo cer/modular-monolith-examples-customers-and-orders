@@ -9,9 +9,14 @@ option java_outer_classname = "CreditManagementProto";
 // gRPC version of CreditManagement in customers-api-credit-management-pojo.
 // Errors: NOT_FOUND for an unknown customer, FAILED_PRECONDITION when the credit limit is exceeded.
 service CreditManagementService {
-  rpc ReserveCredit(ReserveCreditRequest) returns (ReserveCreditResponse);
-  rpc ReleaseCredit(ReleaseCreditRequest) returns (ReleaseCreditResponse);
-  rpc GetCustomerInfo(GetCustomerInfoRequest) returns (GetCustomerInfoResponse);
+  rpc ReserveCredit(ReserveCreditRequest)
+      returns (ReserveCreditResponse);
+
+  rpc ReleaseCredit(ReleaseCreditRequest)
+      returns (ReleaseCreditResponse);
+
+  rpc GetCustomerInfo(GetCustomerInfoRequest)
+      returns (GetCustomerInfoResponse);
 }
 
 // Money amounts are decimal strings, for example "12.34".
