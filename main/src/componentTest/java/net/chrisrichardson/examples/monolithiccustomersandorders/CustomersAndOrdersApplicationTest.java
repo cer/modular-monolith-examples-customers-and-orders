@@ -2,6 +2,7 @@ package net.chrisrichardson.examples.monolithiccustomersandorders;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.NotificationService;
 import net.chrisrichardson.examples.monolithiccustomersandorders.testcontainerutil.PropertyProvidingPostgresSQLContainer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,12 +10,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 
 
 @SpringBootTest(classes= CustomersAndOrdersMain.class, webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -26,6 +31,9 @@ public class CustomersAndOrdersApplicationTest {
   static void registerDatabaseProperties(DynamicPropertyRegistry registry) {
     postgres.startAndRegisterProperties(registry);
   }
+
+  @MockitoSpyBean
+  private NotificationService notificationService;
 
   @LocalServerPort
   private int port;
@@ -89,6 +97,20 @@ public class CustomersAndOrdersApplicationTest {
             then().
             statusCode(200)
             .body("size()", equalTo(0));
+  }
+
+  @Test
+  public void shouldNotifyWhenCustomerCreated() {
+    int customerId = given().
+            contentType(ContentType.JSON).
+            body(Map.of("name", "Fred", "creditLimit", "100")).
+            when().
+            post("/customers").
+            then().
+            statusCode(200)
+            .extract().path("customerId");
+
+    verify(notificationService).sendEmail(any(), eq("customer-created"), eq(Map.of("customerId", (long) customerId, "name", "Fred")));
   }
 
   // Move these down

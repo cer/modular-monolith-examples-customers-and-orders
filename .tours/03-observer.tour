@@ -13,14 +13,19 @@
       "line": 5
     },
     {
-      "file": "notifications/notifications-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/notifications/domain/NotificationServiceImpl.java",
-      "description": "One observer is the `notifications` domain module.\n\nHere's how `NotificationServiceImpl` registers for events.",
-      "line": 25
+      "file": "notifications/notifications-customer-observer-pojo-adapter/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/notifications/customerobserver/pojoadapter/CustomerDomainObserverPojoAdapterConfiguration.java",
+      "description": "One observer is the `notifications` domain module.\n\nThe `notifications-customer-observer-pojo-adapter` Gradle subproject registers a `CustomerDomainObserverPojoAdapter` for events.\nAs a result, `notifications-domain` doesn't depend on the `customers` domain module.",
+      "line": 15
+    },
+    {
+      "file": "notifications/notifications-customer-observer-pojo-adapter/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/notifications/customerobserver/pojoadapter/CustomerDomainObserverPojoAdapter.java",
+      "description": "The adapter's `noteCustomerCreated()` method is invoked when a `Customer` is created.\nIt calls `CustomerEventHandler`, an interface defined by `notifications-domain`.",
+      "line": 16
     },
     {
       "file": "notifications/notifications-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/notifications/domain/NotificationServiceImpl.java",
-      "description": "The `noteCustomerCreated()` method is invoked when a `Customer` is created.\nIt sends a welcome email.",
-      "line": 34
+      "description": "`NotificationServiceImpl` implements `CustomerEventHandler`.\nIts `noteCustomerCreated()` method sends a welcome email.",
+      "line": 16
     }
   ],
   "ref": "main"

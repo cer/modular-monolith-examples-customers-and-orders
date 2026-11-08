@@ -1,5 +1,6 @@
 dependencies {
     implementation project(":notifications:notifications-domain")
     implementation project(":notifications:notifications-persistence")
+    implementation project(":notifications:notifications-customer-observer-pojo-adapter")
 
 }

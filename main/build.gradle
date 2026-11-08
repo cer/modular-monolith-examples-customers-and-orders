@@ -17,6 +17,7 @@ dependencies {
     runtimeOnly "org.springframework.boot:spring-boot-starter-actuator"
 
     componentTestImplementation project(":test-container-util");
+    componentTestImplementation project(":notifications:notifications-api")
     componentTestImplementation "io.rest-assured:rest-assured:$restAssuredVersion"
     componentTestImplementation "io.rest-assured:json-path:$restAssuredVersion"
 

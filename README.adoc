@@ -44,17 +44,17 @@ For example:
 
 [java]
 ----
-@Service
-public class NotificationServiceImpl implements CustomerDomainObserver {
-
-  @PostConstruct
-  public void registerCustomerDomainObserver() {
-    customerDomainObservers.registerObserver(this);
-  }
+public class CustomerDomainObserverPojoAdapter implements CustomerDomainObserver {
 
   @Override
-  public void noteCustomerCreated(CustomerInfo customerInfo) {...}
-----      
+  public void noteCustomerCreated(CustomerInfo customerInfo) {
+    customerEventHandler.noteCustomerCreated(customerInfo.customerId(), customerInfo.name(), customerInfo.emailAddress());
+  }
+----
+
+`CustomerDomainObserverPojoAdapter` is in the `notifications-customer-observer-pojo-adapter` Gradle sub-project.
+It's registered with the `Customers` domain module's `CustomerDomainObservers`, and calls `CustomerEventHandler`, an interface defined by `notifications-domain`.
+As a result, `notifications-domain` doesn't depend on the `Customers` domain module.
 
 Note: For simplicity, https://microservices.io/post/architecture/2023/11/13/how-modular-can-your-monolith-go-part-6-transactional-commands.html[the observers are executed in the publisher's transaction].
 
