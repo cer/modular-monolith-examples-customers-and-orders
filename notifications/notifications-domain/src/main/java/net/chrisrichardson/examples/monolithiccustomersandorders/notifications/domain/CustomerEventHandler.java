@@ -2,7 +2,7 @@ package net.chrisrichardson.examples.monolithiccustomersandorders.notifications.
 
 /**
  * What the notifications module does when the customers module publishes an event.
- * Called by notifications-customer-observer-pojo-adapter.
+ * Called by notifications-customer-observer-pojo-adapter (default) and notifications-customer-observer-grpc-adapter (profile grpc).
  */
 public interface CustomerEventHandler {
 

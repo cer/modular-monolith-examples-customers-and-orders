@@ -22,4 +22,10 @@ public class CustomersAndOrdersGrpcApplicationTest extends CustomersAndOrdersApp
     assertTrue(applicationContext.containsBean("grpcCustomerCreditService"));
     assertFalse(applicationContext.containsBean("pojoCustomerCreditService"));
   }
+
+  @Test
+  public void shouldUseGrpcCustomerObserver() {
+    assertTrue(applicationContext.containsBean("customerDomainObserverGrpcServer"));
+    assertFalse(applicationContext.containsBean("customerDomainObserverPojoAdapter"));
+  }
 }

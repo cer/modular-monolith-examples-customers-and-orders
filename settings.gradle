@@ -12,8 +12,10 @@ include 'customers:customers-persistence'
 include 'customers:customers-api'
 include 'customers:customers-api-credit-management-pojo'
 include 'customers:customers-api-observer-pojo'
+include 'customers:customers-api-observer-grpc'
 include 'customers:customers-api-credit-management-grpc'
 include 'customers:customers-credit-management-grpc-server'
+include 'customers:customers-observer-grpc-server'
 
 include 'orders:orders-web'
 include 'orders:orders-domain'
@@ -25,6 +27,7 @@ include 'notifications:notifications-domain'
 include 'notifications:notifications-persistence'
 include 'notifications:notifications-api'
 include 'notifications:notifications-customer-observer-pojo-adapter'
+include 'notifications:notifications-customer-observer-grpc-adapter'
 
 
 include 'test-container-util'

@@ -15,7 +15,7 @@
     },
     {
       "directory": "customers/customers-api-credit-management-pojo",
-      "description": "This interface is defined the `customers-api-credit-management-pojo` Gradle subproject.\n\nThis subproject is one of the three Domain API Gradle subprojects defined by the `customers` domain module."
+      "description": "This interface is defined the `customers-api-credit-management-pojo` Gradle subproject.\n\nThis subproject is one of the five Domain API Gradle subprojects defined by the `customers` domain module."
     },
     {
       "file": "customers/customers-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/domain/CustomerServiceImpl.java",

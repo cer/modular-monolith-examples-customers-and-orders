@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package customers.observer;
+
+option java_multiple_files = true;
+option java_package = "net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.grpc";
+option java_outer_classname = "CustomerDomainObserversProto";
+
+// gRPC version of CustomerDomainObservers in customers-api-observer-pojo.
+// Implemented by customers. An observer registers by passing the name of its in-process gRPC server,
+// which must implement CustomerDomainObserverService.
+service CustomerDomainObserversService {
+  rpc RegisterObserver(RegisterObserverRequest) returns (RegisterObserverResponse);
+}
+
+message RegisterObserverRequest {
+  string in_process_server_name = 1;
+}
+
+message RegisterObserverResponse {
+}
+
+// gRPC version of CustomerDomainObserver in customers-api-observer-pojo.
+// Implemented by each observer, and called by customers in the transaction that published the event.
+// An error status rolls back that transaction.
+service CustomerDomainObserverService {
+  rpc NoteCustomerCreated(NoteCustomerCreatedRequest) returns (NoteCustomerCreatedResponse);
+}
+
+// Money amounts are decimal strings, for example "12.34".
+
+message NoteCustomerCreatedRequest {
+  int64 customer_id = 1;
+  string name = 2;
+  string email_address = 3;
+  string credit_limit = 4;
+  string available_credit = 5;
+}
+
+message NoteCustomerCreatedResponse {
+}

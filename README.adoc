@@ -95,6 +95,34 @@ The gRPC server maps exceptions to status codes:
 
 The proxy throws `StatusRuntimeException` for an error status, which rolls back the caller's transaction.
 
+### The observer API also has a gRPC version
+
+The `Customers` domain module also has two versions of its observer API:
+
+* POJO API - the `CustomerDomainObservers` and `CustomerDomainObserver` Java interfaces, defined by `customers-api-observer-pojo`
+* gRPC API - two gRPC services defined by `customers-api-observer-grpc`:
+** `CustomerDomainObserversService`, which `Customers` implements. An observer calls `RegisterObserver` with the name of its in-process gRPC server.
+** `CustomerDomainObserverService`, which each observer implements. `Customers` calls `NoteCustomerCreated` when a customer is created.
+
+By default, `Notifications` uses the POJO API.
+When the `grpc` Spring profile is active, `Notifications` uses the gRPC API.
+
+The gRPC option consists of these Gradle sub-projects:
+
+* `customers-api-observer-grpc` - the Domain API sub-project: `customer_domain_observers.proto`, the generated Java classes and `CustomerDomainObserversInProcessServer`
+* `customers-observer-grpc-server` - an inbound adapter in `Customers` that implements `RegisterObserver` by registering a `CustomerDomainObserver` that calls the observer's gRPC server
+* `notifications-customer-observer-grpc-adapter` - an adapter in `Notifications` that implements `CustomerDomainObserverService` by calling `CustomerEventHandler`, and registers it at startup
+
+The POJO option is implemented by `notifications-customer-observer-pojo-adapter`.
+`notifications-domain` depends on neither API.
+
+`Customers` calls the observer with a blocking stub and `directExecutor()`.
+As a result, the observer runs in the transaction that created the customer, and an error status rolls it back, just like a POJO observer.
+
+`Notifications` registers while the Spring application context is being created, before the web server accepts requests.
+It injects a `CustomerDomainObserversInProcessServer` bean, which `Customers` defines only after its in-process server has started.
+As a result, `Notifications` can't call `RegisterObserver` before that server has started.
+
 ### Running the application with the gRPC API
 
 Activate the `grpc` Spring profile, for example:
@@ -143,11 +171,13 @@ As a result, a domain module's implementation can be changed without having to r
 ### Uses the Interface Segregation Principle (ISP) to define narrower APIs.
 
 To further reduce build-time coupling, the `Customers` domain module uses the https://microservices.io/post/architecture/2023/09/12/how-modular-can-your-monolith-go-part-4-physical-design.html#applying-the-interface-segregation-principle-isp[Interface Segregation Principle (ISP)] to define narrower APIs.
-It has three Domain Modules API Gradle sub-projects:
+It has five Domain Module API Gradle sub-projects:
 
 * `customers-api` - defines CRUD operations
 * `customers-api-credit-management-pojo` - defines operations for managing credit
+* `customers-api-credit-management-grpc` - the gRPC version of `customers-api-credit-management-pojo`
 * `customers-api-observer-pojo` - for registering observers of the `Customers` domain
+* `customers-api-observer-grpc` - the gRPC version of `customers-api-observer-pojo`
 
 As a result, each client only build-time coupled to those APIs that it's actually using.
 

@@ -4,8 +4,10 @@ import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.o
 import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.domain.CustomerEventHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
+@Profile("!grpc")
 public class CustomerDomainObserverPojoAdapterConfiguration {
 
   @Bean

@@ -5,6 +5,7 @@ dependencies {
     implementation project(":customers:customers-web")
     implementation project(":customers:customers-persistence")
     implementation project(":customers:customers-credit-management-grpc-server")
+    implementation project(":customers:customers-observer-grpc-server")
 
     integrationTestImplementation project(":customers:customers-api")
     integrationTestImplementation project(":customers:customers-api-observer-pojo")
