@@ -14,19 +14,19 @@
       "line": 17
     },
     {
-      "file": "customers/customers-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/domain/CustomerDomainObserversImpl.java",
-      "description": "`CustomerDomainObserversImpl`, in `customers-domain`, implements `CustomerDomainObservers`.\nIt adds each registered observer to a list.",
+      "file": "customers/customers-api-observer/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/api/observer/CustomerDomainObserversImpl.java",
+      "description": "`CustomerDomainObserversImpl`, in the `customers-api-observer` Gradle subproject, implements `CustomerDomainObservers`.\nIt adds each registered observer to a list.",
       "line": 17
     },
     {
       "file": "customers/customers-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/domain/CustomerServiceImpl.java",
-      "description": "When a `Customer` is created, `CustomerServiceImpl` publishes an event.",
+      "description": "When a `Customer` is created, `CustomerServiceImpl` publishes an event by calling `CustomerEventPublisher`.\n`CustomerEventPublisher` and the `CustomerInfo` it takes are defined by `customers-domain`.\nAs a result, `customers-domain` doesn't depend on the observer API.",
       "line": 35
     },
     {
-      "file": "customers/customers-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/domain/CustomerDomainObserversImpl.java",
-      "description": "`CustomerDomainObserversImpl` calls each registered observer.\nThe observers run in the publisher's transaction.",
-      "line": 21
+      "file": "customers/customers-api-observer/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/api/observer/CustomerDomainObserversImpl.java",
+      "description": "`CustomerDomainObserversImpl` also implements `CustomerEventPublisher`.\nIt converts the domain's `CustomerInfo` into the observer API's `CustomerInfo`, and calls each registered observer.\nThe observers run in the publisher's transaction.",
+      "line": 22
     },
     {
       "file": "notifications/notifications-customer-observer-pojo-adapter/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/notifications/customerobserver/pojoadapter/CustomerDomainObserverPojoAdapter.java",

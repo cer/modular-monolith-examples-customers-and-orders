@@ -16,6 +16,7 @@ include 'customers:customers-api-observer-grpc'
 include 'customers:customers-api-credit-management-grpc'
 include 'customers:customers-credit-management-grpc-server'
 include 'customers:customers-observer-grpc-server'
+include 'customers:customers-api-observer'
 
 include 'orders:orders-web'
 include 'orders:orders-domain'

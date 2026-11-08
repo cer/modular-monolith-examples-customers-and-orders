@@ -20,19 +20,19 @@ import static java.util.stream.Collectors.toList;
 public class CustomerServiceImpl implements CustomerService, CreditManagement {
 
   private final CustomerRepository customerRepository;
-  private final CustomerDomainObserversImpl customerDomainObservers;
+  private final CustomerEventPublisher customerEventPublisher;
 
   @Autowired
-  public CustomerServiceImpl(CustomerRepository customerRepository, CustomerDomainObserversImpl customerDomainObservers) {
+  public CustomerServiceImpl(CustomerRepository customerRepository, CustomerEventPublisher customerEventPublisher) {
     this.customerRepository = customerRepository;
-    this.customerDomainObservers = customerDomainObservers;
+    this.customerEventPublisher = customerEventPublisher;
   }
 
   @Override
   public CustomerInfo createCustomer(String name, Money creditLimit) {
     Customer customer  = new Customer(name, creditLimit);
     Customer savedCustomer = customerRepository.save(customer);
-    customerDomainObservers.noteCustomerCreated(new net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.pojo.CustomerInfo(savedCustomer.getId(),
+    customerEventPublisher.noteCustomerCreated(new net.chrisrichardson.examples.monolithiccustomersandorders.customers.domain.CustomerInfo(savedCustomer.getId(),
             customer.getName(),
             savedCustomer.getEmailAddress(),
             creditLimit,

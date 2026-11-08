@@ -56,6 +56,12 @@ public class CustomerDomainObserverPojoAdapter implements CustomerDomainObserver
 It's registered with the `Customers` domain module's `CustomerDomainObservers`, and calls `CustomerEventHandler`, an interface defined by `notifications-domain`.
 As a result, `notifications-domain` doesn't depend on the `Customers` domain module.
 
+The publishing side uses the same approach.
+When a customer is created, `customers-domain` calls `CustomerEventPublisher`, an interface that it defines, with its own `CustomerInfo`.
+`CustomerDomainObserversImpl`, in the `customers-api-observer` Gradle sub-project, implements both `CustomerEventPublisher` and `CustomerDomainObservers`.
+It converts the domain's `CustomerInfo` into the observer API's `CustomerInfo`, and calls each registered observer.
+As a result, `customers-domain` doesn't depend on the observer API.
+
 Note: For simplicity, https://microservices.io/post/architecture/2023/11/13/how-modular-can-your-monolith-go-part-6-transactional-commands.html[the observers are executed in the publisher's transaction].
 
 ## A domain module API can be a POJO API or a gRPC API

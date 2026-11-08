@@ -1,0 +1,6 @@
+dependencies {
+    implementation project(":customers:customers-domain")
+    implementation project(":customers:customers-api-observer-pojo")
+    implementation project(":money")
+    implementation "org.springframework:spring-context"
+}

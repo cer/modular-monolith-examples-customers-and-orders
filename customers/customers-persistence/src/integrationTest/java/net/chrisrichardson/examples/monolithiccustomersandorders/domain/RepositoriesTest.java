@@ -1,6 +1,7 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.domain;
 
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.domain.Customer;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.domain.CustomerEventPublisher;
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.domain.CustomerRepository;
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.domain.CustomersDomainConfiguration;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -44,6 +46,9 @@ public class RepositoriesTest {
 
   @Autowired
   private TransactionTemplate transactionTemplate;
+
+  @MockitoBean
+  private CustomerEventPublisher customerEventPublisher;
 
 
   @Test

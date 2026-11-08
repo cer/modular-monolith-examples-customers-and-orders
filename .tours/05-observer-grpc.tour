@@ -33,7 +33,7 @@
       "line": 29
     },
     {
-      "file": "customers/customers-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/domain/CustomerDomainObserversImpl.java",
+      "file": "customers/customers-api-observer/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/api/observer/CustomerDomainObserversImpl.java",
       "description": "`CustomerDomainObserversImpl` adds the proxy to its list of observers, just as it does for a POJO observer.",
       "line": 17
     },
@@ -43,9 +43,9 @@
       "line": 35
     },
     {
-      "file": "customers/customers-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/domain/CustomerDomainObserversImpl.java",
+      "file": "customers/customers-api-observer/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/api/observer/CustomerDomainObserversImpl.java",
       "description": "`CustomerDomainObserversImpl` calls each registered observer, including the `CustomerDomainObserverGrpcProxy`.",
-      "line": 21
+      "line": 22
     },
     {
       "file": "customers/customers-observer-grpc-server/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/observer/grpcserver/CustomerDomainObserverGrpcProxy.java",
