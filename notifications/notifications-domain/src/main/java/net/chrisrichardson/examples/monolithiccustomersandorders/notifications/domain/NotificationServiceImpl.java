@@ -1,6 +1,6 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.notifications.domain;
 
-import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.NotificationService;
+import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.pojo.NotificationService;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

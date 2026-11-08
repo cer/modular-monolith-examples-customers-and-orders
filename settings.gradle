@@ -25,7 +25,7 @@ include 'orders:orders-credit-management-grpc-proxy'
 
 include 'notifications:notifications-domain'
 include 'notifications:notifications-persistence'
-include 'notifications:notifications-api'
+include 'notifications:notifications-api-pojo'
 include 'notifications:notifications-customer-observer-pojo-adapter'
 include 'notifications:notifications-customer-observer-grpc-adapter'
 

@@ -1,4 +1,4 @@
-package net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api;
+package net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.pojo;
 
 import java.util.Map;
 

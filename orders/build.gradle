@@ -10,7 +10,7 @@ dependencies {
     integrationTestImplementation project(":test-container-util")
 
     integrationTestImplementation project(":money")
-    integrationTestImplementation project(":notifications:notifications-api")
+    integrationTestImplementation project(":notifications:notifications-api-pojo")
 
     integrationTestImplementation "org.springframework.boot:spring-boot-starter-webmvc-test"
 

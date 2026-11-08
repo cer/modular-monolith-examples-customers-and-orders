@@ -1,7 +1,7 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.orders.domain;
 
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
-import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.NotificationService;
+import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.pojo.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

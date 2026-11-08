@@ -2,7 +2,7 @@ package net.chrisrichardson.examples.monolithiccustomersandorders;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.NotificationService;
+import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.pojo.NotificationService;
 import net.chrisrichardson.examples.monolithiccustomersandorders.testcontainerutil.PropertyProvidingPostgresSQLContainer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

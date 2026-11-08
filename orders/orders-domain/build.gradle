@@ -1,7 +1,7 @@
 
 dependencies {
     api project(":money")
-    implementation project(":notifications:notifications-api")
+    implementation project(":notifications:notifications-api-pojo")
 
 
     api "org.springframework.boot:spring-boot-starter-data-jpa"
