@@ -20,6 +20,6 @@ public class CustomersAndOrdersGrpcApplicationTest extends CustomersAndOrdersApp
   @Test
   public void shouldUseGrpcProxy() {
     assertTrue(applicationContext.containsBean("grpcCustomerCreditService"));
-    assertFalse(applicationContext.containsBean("javaCustomerCreditService"));
+    assertFalse(applicationContext.containsBean("pojoCustomerCreditService"));
   }
 }

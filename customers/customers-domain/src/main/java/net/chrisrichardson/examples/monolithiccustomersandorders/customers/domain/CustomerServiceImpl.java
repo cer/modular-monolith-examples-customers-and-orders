@@ -2,8 +2,8 @@ package net.chrisrichardson.examples.monolithiccustomersandorders.customers.doma
 
 
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.CustomerService;
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CreditManagement;
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CustomerInfo;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.pojo.CreditManagement;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.pojo.CustomerInfo;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,5 +1,5 @@
 dependencies {
     implementation project(":orders:orders-domain")
-    implementation project(":customers:customers-api-credit-management")
+    implementation project(":customers:customers-api-credit-management-pojo")
     implementation "org.springframework:spring-context"
 }

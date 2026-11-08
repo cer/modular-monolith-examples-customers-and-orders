@@ -31,8 +31,13 @@ For example:
   @Transactional
   public Order createOrder(long customerId, Money orderTotal) {
       ...
-      creditManagement.reserveCredit(customerId, order.getId(), orderTotal);
+      customerCreditService.reserveCredit(customerId, order.getId(), orderTotal);
 ----
+
+`CustomerCreditService` is an interface that the `Orders` domain defines.
+It describes what `Orders` needs from `Customers`.
+An outbound adapter in the `Orders` domain module implements it by calling the `Customers` domain module's API, which can be either a POJO API or a gRPC API.
+See <<_a_domain_module_api_can_be_a_pojo_api_or_a_grpc_api>>.
 
 The second collaboration mechanism is the https://microservices.io/post/architecture/2023/10/30/how-modular-can-your-monolith-go-part-5-domain-observers.html[Observer pattern] - one domain subscribes to events emitted by another domain.
 For example:
@@ -52,6 +57,54 @@ public class NotificationServiceImpl implements CustomerDomainObserver {
 ----      
 
 Note: For simplicity, https://microservices.io/post/architecture/2023/11/13/how-modular-can-your-monolith-go-part-6-transactional-commands.html[the observers are executed in the publisher's transaction].
+
+## A domain module API can be a POJO API or a gRPC API
+
+The `Customers` domain module has two different versions of its credit management API:
+
+* POJO API - the `CreditManagement` Java interface, defined by `customers-api-credit-management-pojo`
+* gRPC API - `CreditManagementService`, a gRPC service defined by `customers-api-credit-management-grpc`
+
+By default, `Orders` uses the POJO API.
+When the `grpc` Spring profile is active, `Orders` uses the gRPC API.
+
+The gRPC option uses an https://grpc.github.io/grpc-java/javadoc/io/grpc/inprocess/InProcessServerBuilder.html[in-process gRPC server], so the call stays inside the monolith's JVM.
+It shows that a domain module can expose a language-neutral API, defined by a `.proto` file, without becoming a separate service.
+
+The gRPC option consists of these Gradle sub-projects:
+
+* `customers-api-credit-management-grpc` - the Domain API sub-project: `credit_management.proto` and the generated Java classes
+* `customers-credit-management-grpc-server` - an inbound adapter in `Customers` that implements the gRPC service by delegating to `CreditManagement`
+* `orders-credit-management-grpc-proxy` - an outbound adapter in `Orders` that implements `CustomerCreditService` using a gRPC blocking stub
+
+The POJO option is implemented by `orders-credit-management-pojo-proxy`, an outbound adapter in `Orders` that implements `CustomerCreditService` by calling `CreditManagement`.
+
+`orders-domain` depends on neither API.
+It only depends on its own `CustomerCreditService` interface.
+As a result, switching between the POJO API and the gRPC API doesn't require `orders-domain` to be changed, recompiled or retested.
+
+### A gRPC call runs in the caller's transaction
+
+The server and the client channel use `directExecutor()`, and the proxy uses a blocking stub.
+As a result, a gRPC call runs on the caller's thread and joins the caller's transaction, just like a POJO API call.
+
+The gRPC server maps exceptions to status codes:
+
+* `CustomerNotFoundException` - `NOT_FOUND`
+* `CustomerCreditLimitExceededException` - `FAILED_PRECONDITION`
+
+The proxy throws `StatusRuntimeException` for an error status, which rolls back the caller's transaction.
+
+### Running the application with the gRPC API
+
+Activate the `grpc` Spring profile, for example:
+
+[source,bash]
+----
+./gradlew :main:bootRun --args='--spring.profiles.active=grpc'
+----
+
+`CustomersAndOrdersGrpcApplicationTest` runs the application's component tests with the `grpc` profile active.
 
 ## Minimizing build-time coupling is a key design goal
 
@@ -80,7 +133,7 @@ For example, the `Customers` domain has a `customers-api` Gradle sub-project, wh
 
 A domain module's clients only depend on its Domain API Gradle sub-project.
 Moreover, its clients are tested using mocks of the API.
-For example, the `Orders` domain is tested using a mock of the `Customers` domain's API.
+For example, the `Orders` domain is tested using a mock of `CustomerCreditService`, which `Orders` uses to call the `Customers` domain's API.
 As a result, a domain module's implementation can be changed without having to recompile/retest its clients.
 
 ### Uses the Interface Segregation Principle (ISP) to define narrower APIs.
@@ -89,7 +142,7 @@ To further reduce build-time coupling, the `Customers` domain module uses the ht
 It has three Domain Modules API Gradle sub-projects:
 
 * `customers-api` - defines CRUD operations
-* `customers-api-credit-management` - defines operations for managing credit
+* `customers-api-credit-management-pojo` - defines operations for managing credit
 * `customers-api-observer` - for registering observers of the `Customers` domain
 
 As a result, each client only build-time coupled to those APIs that it's actually using.

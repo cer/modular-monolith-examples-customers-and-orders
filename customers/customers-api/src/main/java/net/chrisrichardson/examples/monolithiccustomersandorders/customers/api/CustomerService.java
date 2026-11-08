@@ -1,6 +1,6 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.customers.api;
 
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CustomerInfo;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.pojo.CustomerInfo;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
 
 import java.util.List;

@@ -1,5 +1,5 @@
 dependencies {
-    implementation project(":customers:customers-api-credit-management")
+    implementation project(":customers:customers-api-credit-management-pojo")
     implementation project(":customers:customers-api-credit-management-grpc")
     implementation project(":customers:customers-domain")
     implementation "org.springframework:spring-context"

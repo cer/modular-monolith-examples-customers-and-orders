@@ -1,14 +1,14 @@
-package net.chrisrichardson.examples.monolithiccustomersandorders.orders.creditmanagement.javaproxy;
+package net.chrisrichardson.examples.monolithiccustomersandorders.orders.creditmanagement.pojoproxy;
 
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CreditManagement;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.pojo.CreditManagement;
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
 import net.chrisrichardson.examples.monolithiccustomersandorders.orders.domain.CustomerCreditService;
 
-public class CreditManagementJavaProxy implements CustomerCreditService {
+public class CreditManagementPojoProxy implements CustomerCreditService {
 
   private final CreditManagement creditManagement;
 
-  public CreditManagementJavaProxy(CreditManagement creditManagement) {
+  public CreditManagementPojoProxy(CreditManagement creditManagement) {
     this.creditManagement = creditManagement;
   }
 

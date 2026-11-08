@@ -1,7 +1,7 @@
 package net.chrisrichardson.examples.monolithiccustomersandorders.customers;
 
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.CustomerService;
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CreditManagement;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.pojo.CreditManagement;
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.CustomerDomainObserver;
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.CustomerDomainObservers;
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.observer.CustomerInfo;
@@ -107,7 +107,7 @@ public class CustomersModuleTest {
         assertEquals(creditLimit, customerInfo.availableCredit());
     }
 
-    private void assertObserversNotified(net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CustomerInfo customer) {
+    private void assertObserversNotified(net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.pojo.CustomerInfo customer) {
         var arg = ArgumentCaptor.forClass(CustomerInfo.class);
         verify(customerDomainObserver).noteCustomerCreated(arg.capture());
         CustomerInfo capturedArg = arg.getValue();

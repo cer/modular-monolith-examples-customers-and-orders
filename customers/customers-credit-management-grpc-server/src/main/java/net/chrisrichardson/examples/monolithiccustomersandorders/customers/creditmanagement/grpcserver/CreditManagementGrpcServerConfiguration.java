@@ -2,7 +2,7 @@ package net.chrisrichardson.examples.monolithiccustomersandorders.customers.cred
 
 import io.grpc.Server;
 import io.grpc.inprocess.InProcessServerBuilder;
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CreditManagement;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.pojo.CreditManagement;
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.grpc.CreditManagementInProcessServer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

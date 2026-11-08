@@ -6,7 +6,7 @@ option java_multiple_files = true;
 option java_package = "net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.grpc";
 option java_outer_classname = "CreditManagementProto";
 
-// gRPC version of CreditManagement in customers-api-credit-management.
+// gRPC version of CreditManagement in customers-api-credit-management-pojo.
 // Errors: NOT_FOUND for an unknown customer, FAILED_PRECONDITION when the credit limit is exceeded.
 service CreditManagementService {
   rpc ReserveCredit(ReserveCreditRequest) returns (ReserveCreditResponse);

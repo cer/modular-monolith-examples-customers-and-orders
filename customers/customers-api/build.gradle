@@ -1,4 +1,4 @@
 dependencies {
     implementation project(":money")
-    api project(":customers:customers-api-credit-management")
+    api project(":customers:customers-api-credit-management-pojo")
 }

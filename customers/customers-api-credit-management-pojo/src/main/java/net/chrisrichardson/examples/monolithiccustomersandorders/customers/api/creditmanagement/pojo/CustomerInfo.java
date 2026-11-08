@@ -1,4 +1,4 @@
-package net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement;
+package net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.pojo;
 
 import net.chrisrichardson.examples.monolithiccustomersandorders.money.domain.Money;
 

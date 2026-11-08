@@ -2,8 +2,8 @@ package net.chrisrichardson.examples.monolithiccustomersandorders.customers.cred
 
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CreditManagement;
-import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.CustomerInfo;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.pojo.CreditManagement;
+import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.pojo.CustomerInfo;
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.grpc.CreditManagementServiceGrpc;
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.grpc.GetCustomerInfoRequest;
 import net.chrisrichardson.examples.monolithiccustomersandorders.customers.api.creditmanagement.grpc.GetCustomerInfoResponse;

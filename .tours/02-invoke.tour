@@ -9,13 +9,13 @@
       "line": 30
     },
     {
-      "file": "customers/customers-api-credit-management/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/api/creditmanagement/CreditManagement.java",
+      "file": "customers/customers-api-credit-management-pojo/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/api/creditmanagement/pojo/CreditManagement.java",
       "description": "It invokes the `reserveCredit()` method of the `CreditManagement` interface.\n\n",
       "line": 6
     },
     {
-      "directory": "customers/customers-api-credit-management",
-      "description": "This interface is defined the `customers-api-credit-management` Gradle subproject.\n\nThis subproject is one of the three Domain API Gradle subprojects defined by the `customers` domain module."
+      "directory": "customers/customers-api-credit-management-pojo",
+      "description": "This interface is defined the `customers-api-credit-management-pojo` Gradle subproject.\n\nThis subproject is one of the three Domain API Gradle subprojects defined by the `customers` domain module."
     },
     {
       "file": "customers/customers-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/domain/CustomerServiceImpl.java",
