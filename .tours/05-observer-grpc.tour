@@ -1,0 +1,67 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "tours/05-observer-grpc",
+  "steps": [
+    {
+      "file": "customers/customers-api-observer-grpc/src/main/proto/customer_domain_observers.proto",
+      "description": "This tour follows registration and the customer-created event when the `grpc` Spring profile is active.\n\nThe gRPC version of the observer API is defined in `customer_domain_observers.proto`, in the `customers-api-observer-grpc` Gradle subproject.\nIt defines two services:\n\n* `CustomerDomainObserversService`, which `customers` implements. An observer calls `RegisterObserver` with the name of its in-process gRPC server.\n* `CustomerDomainObserverService`, which each observer implements. `customers` calls `NoteCustomerCreated` when a customer is created.",
+      "line": 12
+    },
+    {
+      "file": "notifications/notifications-customer-observer-grpc-adapter/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/notifications/customerobserver/grpcadapter/CustomerDomainObserverGrpcAdapterConfiguration.java",
+      "description": "The `notifications-customer-observer-grpc-adapter` Gradle subproject registers `notifications` as an observer.\n\nIts channel to the `customers` server injects a `CustomerDomainObserversInProcessServer` bean.",
+      "line": 31
+    },
+    {
+      "file": "customers/customers-observer-grpc-server/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/observer/grpcserver/CustomerDomainObserversGrpcServerConfiguration.java",
+      "description": "The `customers-observer-grpc-server` Gradle subproject's `@Bean` method starts the in-process server before it returns.",
+      "line": 29
+    },
+    {
+      "file": "customers/customers-observer-grpc-server/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/observer/grpcserver/CustomerDomainObserversGrpcServerConfiguration.java",
+      "description": "The `CustomerDomainObserversInProcessServer` bean depends on the server bean, so Spring creates it only after the server has started.\nAs a result, `notifications` can't call `RegisterObserver` before that server has started.",
+      "line": 34
+    },
+    {
+      "file": "notifications/notifications-customer-observer-grpc-adapter/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/notifications/customerobserver/grpcadapter/CustomerDomainObserverGrpcAdapterConfiguration.java",
+      "description": "`notifications` starts its own in-process gRPC server, which implements `CustomerDomainObserverService`, and then calls `RegisterObserver` with that server's name.\n\nThis runs while the Spring application context is being created, before the web server accepts requests.\nAs a result, `notifications` is registered before any customer can be created.",
+      "line": 45
+    },
+    {
+      "file": "customers/customers-observer-grpc-server/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/observer/grpcserver/CustomerDomainObserversGrpcService.java",
+      "description": "`customers` handles `RegisterObserver` by opening a channel to the observer's server, and registering a `CustomerDomainObserverGrpcProxy` with `CustomerDomainObservers`.",
+      "line": 29
+    },
+    {
+      "file": "customers/customers-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/domain/CustomerDomainObserversImpl.java",
+      "description": "`CustomerDomainObserversImpl` adds the proxy to its list of observers, just as it does for a POJO observer.",
+      "line": 17
+    },
+    {
+      "file": "customers/customers-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/domain/CustomerServiceImpl.java",
+      "description": "When a `Customer` is created, `CustomerServiceImpl` publishes an event.\nIt's unchanged from the POJO version.",
+      "line": 35
+    },
+    {
+      "file": "customers/customers-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/domain/CustomerDomainObserversImpl.java",
+      "description": "`CustomerDomainObserversImpl` calls each registered observer, including the `CustomerDomainObserverGrpcProxy`.",
+      "line": 21
+    },
+    {
+      "file": "customers/customers-observer-grpc-server/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/observer/grpcserver/CustomerDomainObserverGrpcProxy.java",
+      "description": "`CustomerDomainObserverGrpcProxy` calls `NoteCustomerCreated` with a blocking stub.\nThe channel uses `directExecutor()`, so the observer runs in the transaction that created the customer, and an error status rolls it back.",
+      "line": 22
+    },
+    {
+      "file": "notifications/notifications-customer-observer-grpc-adapter/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/notifications/customerobserver/grpcadapter/CustomerDomainObserverGrpcService.java",
+      "description": "`CustomerDomainObserverGrpcService` extends the generated `CustomerDomainObserverServiceImplBase`.\nIt calls `CustomerEventHandler`, just like the POJO adapter.",
+      "line": 23
+    },
+    {
+      "file": "notifications/notifications-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/notifications/domain/NotificationServiceImpl.java",
+      "description": "`NotificationServiceImpl` sends the welcome email, just as in the POJO version.",
+      "line": 16
+    }
+  ],
+  "ref": "main"
+}

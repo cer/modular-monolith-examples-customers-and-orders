@@ -1,0 +1,48 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "tours/04-invoke-grpc",
+  "nextTour": "tours/05-observer-grpc",
+  "steps": [
+    {
+      "file": "orders/orders-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/orders/domain/OrderService.java",
+      "description": "This tour follows the same call when the `grpc` Spring profile is active.\n`OrderService` is unchanged: it invokes `CustomerCreditService`.",
+      "line": 29
+    },
+    {
+      "file": "orders/orders-credit-management-grpc-proxy/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/orders/creditmanagement/grpcproxy/CreditManagementGrpcProxyConfiguration.java",
+      "description": "With the `grpc` profile active, `CustomerCreditService` is implemented by `CreditManagementGrpcProxy`, which is in the `orders-credit-management-grpc-proxy` Gradle subproject.\nIt calls the `customers` domain's in-process gRPC server through a channel that uses `directExecutor()`.",
+      "line": 18
+    },
+    {
+      "file": "orders/orders-credit-management-grpc-proxy/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/orders/creditmanagement/grpcproxy/CreditManagementGrpcProxy.java",
+      "description": "`CreditManagementGrpcProxy` converts the arguments to a `ReserveCreditRequest` and calls a blocking stub.\nA blocking stub returns only after the server has finished, so the call stays inside the caller's transaction.",
+      "line": 25
+    },
+    {
+      "file": "customers/customers-api-credit-management-grpc/src/main/proto/credit_management.proto",
+      "description": "`ReserveCredit` is defined in `credit_management.proto`, in the `customers-api-credit-management-grpc` Gradle subproject.\nIt's the gRPC version of the `customers` domain's credit management API.\n\nThe protobuf Gradle plugin generates the message classes and `CreditManagementServiceGrpc` from this file.",
+      "line": 12
+    },
+    {
+      "file": "customers/customers-credit-management-grpc-server/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/creditmanagement/grpcserver/CreditManagementGrpcServerConfiguration.java",
+      "description": "The `customers-credit-management-grpc-server` Gradle subproject starts an in-process gRPC server.\n`directExecutor()` runs each call on the caller's thread, so it joins the caller's transaction.",
+      "line": 26
+    },
+    {
+      "file": "customers/customers-credit-management-grpc-server/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/creditmanagement/grpcserver/CreditManagementGrpcService.java",
+      "description": "`CreditManagementGrpcService` extends the generated `CreditManagementServiceImplBase`.\nIts `reserveCredit()` method invokes the `CreditManagement` interface.",
+      "line": 29
+    },
+    {
+      "file": "customers/customers-credit-management-grpc-server/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/creditmanagement/grpcserver/CreditManagementGrpcService.java",
+      "description": "Exceptions are mapped to gRPC status codes: `NOT_FOUND` for an unknown customer, `FAILED_PRECONDITION` when the credit limit is exceeded.\nThe proxy throws `StatusRuntimeException` for an error status, which rolls back the caller's transaction.",
+      "line": 71
+    },
+    {
+      "file": "customers/customers-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/domain/CustomerServiceImpl.java",
+      "description": "`CreditManagement` is implemented by `CustomerServiceImpl`, just as in the POJO version.",
+      "line": 55
+    }
+  ],
+  "ref": "main"
+}

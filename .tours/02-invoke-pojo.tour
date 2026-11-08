@@ -1,0 +1,42 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "tours/02-invoke-pojo",
+  "nextTour": "tours/03-observer-pojo",
+  "steps": [
+    {
+      "file": "orders/orders-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/orders/domain/OrderService.java",
+      "description": "The `orders` domain synchronously invokes the `customers` domain to reserve credit for an order.\nIt invokes the `reserveCredit()` method of the `CustomerCreditService` interface.",
+      "line": 29
+    },
+    {
+      "file": "orders/orders-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/orders/domain/CustomerCreditService.java",
+      "description": "`CustomerCreditService` is an interface defined by `orders-domain`.\nIt describes what `orders` needs from `customers`.\nAs a result, `orders-domain` doesn't depend on the `customers` domain module.",
+      "line": 11
+    },
+    {
+      "file": "orders/orders-credit-management-pojo-proxy/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/orders/creditmanagement/pojoproxy/CreditManagementPojoProxyConfiguration.java",
+      "description": "By default, `CustomerCreditService` is implemented by `CreditManagementPojoProxy`, which is in the `orders-credit-management-pojo-proxy` Gradle subproject.\nThis configuration is active unless the `grpc` Spring profile is active.",
+      "line": 10
+    },
+    {
+      "file": "orders/orders-credit-management-pojo-proxy/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/orders/creditmanagement/pojoproxy/CreditManagementPojoProxy.java",
+      "description": "`CreditManagementPojoProxy` invokes the `reserveCredit()` method of the `customers` domain's `CreditManagement` interface.",
+      "line": 17
+    },
+    {
+      "file": "customers/customers-api-credit-management-pojo/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/api/creditmanagement/pojo/CreditManagement.java",
+      "description": "`CreditManagement` is the POJO version of the `customers` domain's credit management API.",
+      "line": 6
+    },
+    {
+      "directory": "customers/customers-api-credit-management-pojo",
+      "description": "This interface is defined by the `customers-api-credit-management-pojo` Gradle subproject.\n\nThis subproject is one of the five Domain API Gradle subprojects defined by the `customers` domain module."
+    },
+    {
+      "file": "customers/customers-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/domain/CustomerServiceImpl.java",
+      "description": "The `CreditManagement` interface is implemented by the `CustomerServiceImpl` class.",
+      "line": 55
+    }
+  ],
+  "ref": "main"
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "tours/03-observer-pojo",
+  "nextTour": "tours/04-invoke-grpc",
+  "steps": [
+    {
+      "file": "customers/customers-api-observer-pojo/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/api/observer/pojo/CustomerDomainObservers.java",
+      "description": "The `customers` domain publishes events via the Observer pattern.\nObservers register by calling `registerObserver()`, which is defined by the `CustomerDomainObservers` interface.\n\nThis interface is in the `customers-api-observer-pojo` Gradle subproject, which is another Domain API module for the `customers` domain.",
+      "line": 5
+    },
+    {
+      "file": "notifications/notifications-customer-observer-pojo-adapter/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/notifications/customerobserver/pojoadapter/CustomerDomainObserverPojoAdapterConfiguration.java",
+      "description": "One observer is the `notifications` domain module.\n\nBy default, the `notifications-customer-observer-pojo-adapter` Gradle subproject registers a `CustomerDomainObserverPojoAdapter`.\nAs a result, `notifications-domain` doesn't depend on the `customers` domain module.\n\nThis runs while the Spring application context is being created, before the web server accepts requests.\nAs a result, `notifications` is registered before any customer can be created.",
+      "line": 17
+    },
+    {
+      "file": "customers/customers-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/domain/CustomerDomainObserversImpl.java",
+      "description": "`CustomerDomainObserversImpl`, in `customers-domain`, implements `CustomerDomainObservers`.\nIt adds each registered observer to a list.",
+      "line": 17
+    },
+    {
+      "file": "customers/customers-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/domain/CustomerServiceImpl.java",
+      "description": "When a `Customer` is created, `CustomerServiceImpl` publishes an event.",
+      "line": 35
+    },
+    {
+      "file": "customers/customers-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/customers/domain/CustomerDomainObserversImpl.java",
+      "description": "`CustomerDomainObserversImpl` calls each registered observer.\nThe observers run in the publisher's transaction.",
+      "line": 21
+    },
+    {
+      "file": "notifications/notifications-customer-observer-pojo-adapter/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/notifications/customerobserver/pojoadapter/CustomerDomainObserverPojoAdapter.java",
+      "description": "The adapter's `noteCustomerCreated()` method is invoked.\nIt calls `CustomerEventHandler`, an interface defined by `notifications-domain`.",
+      "line": 16
+    },
+    {
+      "file": "notifications/notifications-domain/src/main/java/net/chrisrichardson/examples/monolithiccustomersandorders/notifications/domain/NotificationServiceImpl.java",
+      "description": "`NotificationServiceImpl` implements `CustomerEventHandler`.\nIts `noteCustomerCreated()` method sends a welcome email.",
+      "line": 16
+    }
+  ],
+  "ref": "main"
+}

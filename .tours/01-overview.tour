@@ -1,7 +1,7 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
   "title": "tours/01-overview",
-  "nextTour": "tours/02-invoke",
+  "nextTour": "tours/02-invoke-pojo",
   "steps": [
     {
       "directory": "notifications",
