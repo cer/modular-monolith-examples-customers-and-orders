@@ -4,8 +4,10 @@ import net.chrisrichardson.examples.monolithiccustomersandorders.notifications.a
 import net.chrisrichardson.examples.monolithiccustomersandorders.orders.domain.NotificationSender;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
+@Profile("!grpc")
 public class NotificationPojoProxyConfiguration {
 
   @Bean

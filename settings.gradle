@@ -23,10 +23,13 @@ include 'orders:orders-persistence'
 include 'orders:orders-credit-management-pojo-proxy'
 include 'orders:orders-credit-management-grpc-proxy'
 include 'orders:orders-notifications-pojo-proxy'
+include 'orders:orders-notifications-grpc-proxy'
 
 include 'notifications:notifications-domain'
 include 'notifications:notifications-persistence'
 include 'notifications:notifications-api-pojo'
+include 'notifications:notifications-api-grpc'
+include 'notifications:notifications-grpc-server'
 include 'notifications:notifications-customer-observer-pojo-adapter'
 include 'notifications:notifications-customer-observer-grpc-adapter'
 

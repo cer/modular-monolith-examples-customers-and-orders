@@ -1,6 +1,7 @@
 dependencies {
     implementation project(":notifications:notifications-domain")
     implementation project(":notifications:notifications-persistence")
+    implementation project(":notifications:notifications-grpc-server")
     implementation project(":notifications:notifications-customer-observer-pojo-adapter")
     implementation project(":notifications:notifications-customer-observer-grpc-adapter")
 

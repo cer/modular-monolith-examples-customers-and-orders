@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(":notifications:notifications-api-pojo")
+    implementation project(":notifications:notifications-api-grpc")
+    implementation "org.springframework:spring-context"
+}

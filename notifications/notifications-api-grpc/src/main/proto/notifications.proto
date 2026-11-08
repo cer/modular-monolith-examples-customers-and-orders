@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package notifications;
+
+option java_multiple_files = true;
+option java_package = "net.chrisrichardson.examples.monolithiccustomersandorders.notifications.api.grpc";
+option java_outer_classname = "NotificationsProto";
+
+// gRPC version of NotificationService in notifications-api-pojo.
+service NotificationService {
+  rpc SendEmail(SendEmailRequest) returns (SendEmailResponse);
+}
+
+message SendEmailRequest {
+  string email_address = 1;
+  string template_name = 2;
+  // The template parameters. Values are strings, for example an order id of 42 is "42".
+  map<string, string> params = 3;
+}
+
+message SendEmailResponse {
+}

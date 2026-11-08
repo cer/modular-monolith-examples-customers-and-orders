@@ -24,6 +24,12 @@ public class CustomersAndOrdersGrpcApplicationTest extends CustomersAndOrdersApp
   }
 
   @Test
+  public void shouldUseGrpcNotificationSender() {
+    assertTrue(applicationContext.containsBean("grpcNotificationSender"));
+    assertFalse(applicationContext.containsBean("pojoNotificationSender"));
+  }
+
+  @Test
   public void shouldUseGrpcCustomerObserver() {
     assertTrue(applicationContext.containsBean("customerDomainObserverGrpcServer"));
     assertFalse(applicationContext.containsBean("customerDomainObserverPojoAdapter"));
